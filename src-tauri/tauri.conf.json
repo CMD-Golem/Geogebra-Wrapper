@@ -1,0 +1,29 @@
+{
+	"productName": "geogebra-wrapper",
+	"identifier": "ch.tabq.geogebra-wrapper",
+	"version": "0.0.0",
+	"build": {
+		"frontendDist": "../src"
+	},
+	"app": {
+		"security": {
+			"csp": null
+		},
+		"windows": [
+			{
+				"fullscreen": false,
+				"height": 600,
+				"resizable": true,
+				"title": "Geogebra Wrapper",
+				"width": 800,
+				"backgroundColor": "#000"
+			}
+		]
+	},
+	"bundle": {
+		"active": true,
+		"targets": "all",
+		"icon": []
+	},
+	"plugins": {}
+}
