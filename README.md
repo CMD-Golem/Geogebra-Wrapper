@@ -1,5 +1,5 @@
 # Geogebra-Wrapper
-Wrapper for Geogebra for browser and mobile
+Wrapper for Geogebra for browser and mobile.
 
 Using [Geogebra](https://geogebra.github.io/docs/reference/en/GeoGebra_Apps_API/), [CortexJS](https://cortexjs.io/mathfield/) and [TauriJS](https://v2.tauri.app/).
 

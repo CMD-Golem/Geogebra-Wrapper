@@ -6,6 +6,7 @@
 	<title>Geogebra Wrapper</title>
     <!-- <script src="src/geogebra/deployggb.js"></script> -->
 	<script src="https://www.geogebra.org/apps/deployggb.js"></script>
+	<script src="src/mathlive/mathlive.min.js"></script>
 	<script defer src="src/js/main.js"></script>
 	<script defer src="src/js/style.js"></script>
 	<link rel="stylesheet" href="src/style/style.css">
@@ -13,15 +14,13 @@
 <body>
 	<div id="ggb-element"></div>
 
-	<article>
-		<p id="input_box"><span class='first_el' id="input_el">&#8203;</span><span class='last_el'>&#8203;</span><span class='result'></span></p>
-	</article>
+	<math-box></math-box>
 	
 	<main>
 		<table>
 			<tr>
-				<td class="menu" style="font-size: 70%;">f&#60;&#62;</td>
-				<td class="menu" style="font-size: smaller;">abc</td>
+				<td class="menu" style="font-size: 70%;"><script type="math/tex" mode="display">f&#60;&#62;</script></td>
+				<td class="menu" style="font-size: smaller;"><script type="math/tex" mode="display">abc</script></td>
 				<td class="menu" id="select_prev">&#8592;</td>
 				<td class="menu" id="select_next">&#8594;</td>
 				<td class="menu">&#8626;</td>
@@ -29,24 +28,24 @@
 			</tr>
 			<tr>
 				<td class="has_submenu">
-					<span>( )</span>
+					<span><script type="math/tex" mode="display">()</script></span>
 					<div class="submenu">
-						<p onclick="">( )</p>
-						<p onclick="">(</p>
-						<p onclick="">)</p>
+						<p onclick=""><script type="math/tex" mode="display">()</script></p>
+						<p onclick=""><script type="math/tex" mode="display">(</script></p>
+						<p onclick=""><script type="math/tex" mode="display">)</script></p>
 					</div>
 				</td>
 				<td class="has_submenu" style="font-size: smaller;">
-					<span>sin</span>
+					<span><script type="math/tex" mode="display">\sin</script></span>
 					<div class="submenu">
-						<p onclick="">sin</p>
-						<p onclick="">cos</p>
-						<p onclick="">tan</p>
+						<p onclick=""><script type="math/tex" mode="display">\sin</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\cos</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\tan</script></p>
 					</div>
 					<div class="submenu submenu_top">
-						<p onclick="">asin</p>
-						<p onclick="">acos</p>
-						<p onclick="">atan</p>
+						<p onclick=""><script type="math/tex" mode="display">\operatorname{asin}</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\operatorname{acos}</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\operatorname{atan}</script></p>
 					</div>
 				</td>
 				<td class="number" onclick="">7</td>
@@ -55,19 +54,19 @@
 				<td onclick="">&#247;</td>
 			</tr>
 			<tr>
-				<td class="has_submenu" style="font-size: 50%;">
-					<span>&#11034;</span><br><span style="border-top: var(--border) solid var(--fontcolor);">&#11034;</span>
+				<td class="has_submenu" style="font-size: 70%;">
+					<span><script type="math/tex" mode="display">\frac{▢}{▢}</script></span>
 					<div class="submenu">
-						<p onclick="">&#11034;</span><br><span style="border-top: var(--border) solid var(--fontcolor);">&#11034;</p>
-						<p onclick="">&#11034;</span><br><span style="border-top: var(--border) solid var(--fontcolor);">2</p>
-						<p onclick="">&#11034;</span><br><span style="border-top: var(--border) solid var(--fontcolor);">3</p>
+						<p onclick=""><script type="math/tex" mode="display">\frac{▢}{▢}</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\frac{▢}{2}</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\frac{▢}{3}</script></p>
 					</div>
 				</td>
-				<td class="has_submenu">
-					<span>&#8730;<span class="root_after">&#11034;</span></span>
+				<td class="has_submenu" style="font-size: 70%;">
+					<span><script type="math/tex" mode="display">\sqrt{▢}</script></span>
 					<div class="submenu">
-						<p onclick="">&#8730;<span class="root_after">&#11034;</span></p>
-						<p onclick=""><span class="root_before">&#11034;</span>&#8730;<span class="root_after">&#11034;</span></p>
+						<p onclick=""><script type="math/tex" mode="display">\sqrt{▢}</script></p>
+						<p onclick=""><script type="math/tex" mode="display">\sqrt[▢]{▢}</script></p>
 					</div>
 				</td>
 				<td class="number" onclick="">4</td>
@@ -77,20 +76,20 @@
 			</tr>
 			<tr>
 				<td class="has_submenu" style="font-size: smaller;" onclick="">
-					<span>&#11034;<sup>2</sup></span>
+					<span><script type="math/tex" mode="display">▢^2</script></span>
 					<div class="submenu">
-						<p>&#11034;<sup>2</sup></p>
-						<p>&#11034;<sup>3</sup></p>
-						<p>&#11034;<sup>&#11034;</sup></p>
+						<p><script type="math/tex" mode="display">▢^2</script></p>
+						<p><script type="math/tex" mode="display">▢^3</script></p>
+						<p><script type="math/tex" mode="display">▢^▢</script></p>
 					</div>
 				</td>
 				<td class="has_submenu" style="font-size: 70%;">
-					<span>log<sub>&#11034;</sub></span>
+					<span><script type="math/tex" mode="display">\log_▢</script></span>
 					<div class="submenu">
-						<p>log<sub>&#11034;</sub></p>
-						<p>log<sub>2</sub></p>
-						<p>lg</p>
-						<p>ln</p>
+						<p><script type="math/tex" mode="display">\log_▢</script></p>
+						<p><script type="math/tex" mode="display">log_2</script></p>
+						<p><script type="math/tex" mode="display">\lg</script></p>
+						<p><script type="math/tex" mode="display">\ln</script></p>
 					</div>
 				</td>
 				<td class="number" onclick="">1</td>
@@ -99,13 +98,13 @@
 				<td onclick="">-</td>
 			</tr>
 			<tr>
-				<td onclick="">&pi;</td>
+				<td onclick=""><script type="math/tex" mode="display">\pi</script></td>
 				<td class="has_submenu" onclick="">
-					<span>x</span>
+					<span><script type="math/tex" mode="display">x</script></span>
 					<div class="submenu">
-						<p>x</p>
-						<p>y</p>
-						<p>z</p>
+						<p><script type="math/tex" mode="display">x</script></p>
+						<p><script type="math/tex" mode="display">y</script></p>
+						<p><script type="math/tex" mode="display">z</script></p>
 					</div>
 				</td>
 				<td class="number" onclick="">0</td>

@@ -1,5 +1,9 @@
 :root {
-	--fontcolor: #C8C3BC;
+	--font-color: #C8C3BC;
+	--lighter-color: #2d2f30;
+	--light-color: #505456;
+	--dark-color: #282a2c;
+	--darker-color: #1F2123;
 	--border: 4px;
 	--button-size: 99px;
 }
@@ -9,10 +13,10 @@ html {
 }
 
 body {
-	background-color: #1F2123;
+	background-color: var(--darker-color);
 	min-height: 100%;
 	margin: 0;
-	color: var(--fontcolor);
+	color: var(--font-color);
 	font-family: FiraSans;
 	font-size: 50px;
 	display: flex;
@@ -23,17 +27,8 @@ p {
 	margin: 0;
 }
 
-article {
-	background-color: #282a2c;
-	width: calc(100% - 40px - 1em);
-	margin: 20px;
-	padding: 0.5em;
-	border-radius: 2px;
-	overflow: scroll;
-}
-
 main {
-	background-color: #282A2C;
+	background-color: var(--dark-color);
 	width: 100%;
 	user-select: none;
 	margin-top: auto;
@@ -42,6 +37,37 @@ main {
 	touch-action: none;
 }
 
+/* mathfield */
+:root {
+	--primary: var(--dark-color);
+	--caret-color: #0040bc;
+	--selection-color: var(--font-color); 
+	--selection-background-color: #1d3055;
+	--contains-highlight-background-color: var(--darker-color);
+}
+
+math-box {
+	background-color: var(--dark-color);
+	width: calc(100% - 40px - 1em);
+	margin: 20px;
+	padding: 0.5em;
+	border-radius: 2px;
+	overflow: scroll;
+}
+
+math-field {
+	background-color: var(--dark-color);
+	color: var(--font-color);
+	border: none;
+	outline: none !important;
+	width: 100%;
+}
+
+math-field::part(virtual-keyboard-toggle), math-field::part(menu-toggle) {
+	display: none;
+}
+
+
 /* keyboard */
 /* ################################################## */
 table {
@@ -49,7 +75,7 @@ table {
 }
 
 td {
-	background-color: #1F2123;
+	background-color: var(--darker-color);
 	text-align: center;
 	height: var(--button-size);
 	width: var(--button-size);
@@ -58,12 +84,16 @@ td {
 	position: relative;
 }
 
+td * {
+	cursor: pointer !important;
+}
+
 .menu {
-	background-color: #282A2C;
+	background-color: var(--dark-color);
 }
 
 .number {
-	background-color: #2d2f30;
+	background-color: var(--lighter-color);
 }
 
 .has_submenu::after {
@@ -82,7 +112,7 @@ td {
 .submenu {
 	display: none;
 	position: absolute;
-	background-color: #505456;
+	background-color: var(--light-color);
 	z-index: 2;
 	bottom: var(--button-size);
 	left: 0;
@@ -122,7 +152,7 @@ td {
 
 /* Hover Effect */
 .has_submenu.hover {
-	background-color: #505456;
+	background-color: var(--light-color);
 }
 
 .has_submenu.hover .submenu  {
@@ -130,7 +160,7 @@ td {
 }
 
 .submenu p.hover {
-	background-color: #1F2123;
+	background-color: var(--darker-color);
 	width: calc( var(--button-size) - 9px);
 	min-height: calc( var(--button-size) - 4px);
 	margin: 4px;
@@ -143,11 +173,11 @@ td {
 
 @media (pointer: fine) {
 	td:hover {
-		background-color: #505456;
+		background-color: var(--light-color);
 	}
 
 	.submenu p:hover {
-		background-color: #1F2123;
+		background-color: var(--darker-color);
 		width: calc( var(--button-size) - 9px);
 		min-height: calc( var(--button-size) - 4px);
 		margin: 4px;

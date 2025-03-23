@@ -1,0 +1,334 @@
+var Ba = {
+	pi: "\\pi",
+	Pi: "\\pi",
+	ii: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\imaginaryI"
+	},
+	jj: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\imaginaryJ"
+	},
+	ee: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\exponentialE"
+	},
+	inf: "\\infty",
+	"\u221E": "\\infty",
+	oo: {
+		after: "nothing+digit+frac+surd+binop+relop+punct+array+openfence+closefence+space",
+		value: "\\infty"
+	},
+	"\u2211": "\\sum",
+	sum: "\\sum_{#?}^{#?}",
+	int: "\\int_{#?}^{#?}",
+	prod: "\\prod_{#?}^{#?}",
+	sqrt: "\\sqrt{#?}",
+	cbrt: "\\sqrt[3]{#?}",
+	root: "\\sqrt[#?]{#?}",
+	sin: "\\sin",
+	cos: "\\cos",
+	tan: "\\tan",
+	cot: "\\cot",
+	csc: "\\csc",
+	sec: "\\sec",
+	arcsin: "\\arcsin",
+	arccos: "\\arccos",
+	arctan: "\\arctan",
+	arccot: "\\operatorname{arccot}",
+	arccsc: "\\operatorname{arccsc}",
+	arcsec: "\\operatorname{arcsec}",
+	sinh: "\\sinh",
+	cosh: "\\cosh",
+	tanh: "\\tanh",
+	coth: "\\coth",
+	csch: "\\operatorname{csch}",
+	sech: "\\operatorname{sech}",
+	arsinh: "\\operatorname{arsinh}",
+	arcosh: "\\operatorname{arcosh}",
+	artanh: "\\operatorname{artanh}",
+	arcoth: "\\operatorname{arcoth}",
+	arcsch: "\\operatorname{arcsch}",
+	arsech: "\\operatorname{arsech}",
+	lg: "\\lg",
+	log: "\\log_{#?}",
+	ln: "\\ln",
+	lim: "\\lim_{#?\\to#?}",
+	dx: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\differentialD x"
+	},
+	dy: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\differentialD y"
+	},
+	dt: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\differentialD t"
+	},
+	"\u2260": "\\ne",
+	"!=": "\\ne",
+	"*": "\\cdot"
+};
+
+
+
+var um = [{
+	key: "left",
+	command: "moveToPreviousChar"
+}, {
+	key: "right",
+	command: "moveToNextChar"
+}, {
+	key: "up",
+	command: "moveUp"
+}, {
+	key: "down",
+	command: "moveDown"
+}, {
+	key: "shift+[ArrowLeft]",
+	command: "extendSelectionBackward"
+}, {
+	key: "shift+[ArrowRight]",
+	command: "extendSelectionForward"
+}, {
+	key: "shift+[ArrowUp]",
+	command: "extendSelectionUpward"
+}, {
+	key: "shift+[ArrowDown]",
+	command: "extendSelectionDownward"
+}, {
+	key: "[Backspace]",
+	command: "deleteBackward"
+}, {
+	key: "alt+[Delete]",
+	command: "deleteBackward"
+}, {
+	key: "[Delete]",
+	command: "deleteForward"
+}, {
+	key: "alt+[Backspace]",
+	command: "deleteForward"
+}, {
+	key: "alt+[ArrowLeft]",
+	command: "moveToPreviousWord"
+}, {
+	key: "alt+[ArrowRight]",
+	command: "moveToNextWord"
+}, {
+	key: "shift+alt+[ArrowLeft]",
+	command: "extendToPreviousWord"
+}, {
+	key: "shift+alt+[ArrowRight]",
+	command: "extendToNextWord"
+}, {
+	key: "ctrl+[ArrowLeft]",
+	command: "moveToGroupStart"
+}, {
+	key: "ctrl+[ArrowRight]",
+	command: "moveToGroupEnd"
+}, {
+	key: "shift+ctrl+[ArrowLeft]",
+	command: "extendToGroupStart"
+}, {
+	key: "shift+ctrl+[ArrowRight]",
+	command: "extendToGroupEnd"
+}, {
+	key: "[Home]",
+	command: "moveToMathfieldStart"
+}, {
+	key: "cmd+[ArrowLeft]",
+	command: "moveToMathfieldStart"
+}, {
+	key: "shift+[Home]",
+	command: "extendToMathFieldStart"
+}, {
+	key: "shift+cmd+[ArrowLeft]",
+	command: "extendToMathFieldStart"
+}, {
+	key: "[End]",
+	command: "moveToMathfieldEnd"
+}, {
+	key: "cmd+[ArrowRight]",
+	command: "moveToMathfieldEnd"
+}, {
+	key: "shift+[End]",
+	command: "extendToMathFieldEnd"
+}, {
+	key: "shift+cmd+[ArrowRight]",
+	command: "extendToMathFieldEnd"
+}, {
+	key: "[Pageup]",
+	command: "moveToGroupStart"
+}, {
+	key: "[Pagedown]",
+	command: "moveToGroupEnd"
+}, {
+	key: "[Tab]",
+	command: "moveToNextGroup"
+}, {
+	key: "shift+[Tab]",
+	command: "moveToPreviousGroup"
+}, {
+	key: "ctrl+a",
+	ifPlatform: "!macos",
+	command: "selectAll"
+}, {
+	key: "cmd+a",
+	command: "selectAll"
+}, {
+	key: "[Cut]",
+	command: "cutToClipboard"
+}, {
+	key: "[Copy]",
+	command: "copyToClipboard"
+}, {
+	key: "[Paste]",
+	command: "pasteFromClipboard"
+}, {
+	key: "[Clear]",
+	command: "deleteBackward"
+}, {
+	key: "[Undo]",
+	command: "undo"
+}, {
+	key: "[Redo]",
+	command: "redo"
+}, {
+	key: "[EraseEof]",
+	command: "deleteToGroupEnd"
+}, {
+	key: "ctrl+x",
+	ifPlatform: "ios",
+	command: "cutToClipboard"
+}, {
+	key: "cmd+x",
+	ifPlatform: "ios",
+	command: "cutToClipboard"
+}, {
+	key: "ctrl+c",
+	ifPlatform: "ios",
+	command: "copyToClipboard"
+}, {
+	key: "cmd+c",
+	ifPlatform: "ios",
+	command: "copyToClipboard"
+}, {
+	key: "ctrl+v",
+	ifPlatform: "ios",
+	command: "pasteFromClipboard"
+}, {
+	key: "cmd+v",
+	ifPlatform: "ios",
+	command: "pasteFromClipboard"
+}, {
+	key: "ctrl+z",
+	ifPlatform: "!macos",
+	command: "undo"
+}, {
+	key: "cmd+z",
+	command: "undo"
+}, {
+	key: "ctrl+y",
+	ifPlatform: "!macos",
+	command: "redo"
+}, {
+	key: "shift+cmd+y",
+	command: "redo"
+}, {
+	key: "shift+ctrl+z",
+	ifPlatform: "!macos",
+	command: "redo"
+}, {
+	key: "shift+cmd+z",
+	command: "redo"
+}, {
+	key: "ctrl+b",
+	ifPlatform: "macos",
+	command: "moveToPreviousChar"
+}, {
+	key: "ctrl+f",
+	ifPlatform: "macos",
+	command: "moveToNextChar"
+}, {
+	key: "ctrl+p",
+	ifPlatform: "macos",
+	command: "moveUp"
+}, {
+	key: "ctrl+n",
+	ifPlatform: "macos",
+	command: "moveDown"
+}, {
+	key: "ctrl+a",
+	ifPlatform: "macos",
+	command: "moveToMathfieldStart"
+}, {
+	key: "ctrl+e",
+	ifPlatform: "macos",
+	command: "moveToMathfieldEnd"
+}, {
+	key: "shift+ctrl+b",
+	ifPlatform: "macos",
+	command: "extendSelectionBackward"
+}, {
+	key: "shift+ctrl+f",
+	ifPlatform: "macos",
+	command: "extendSelectionForward"
+}, {
+	key: "shift+ctrl+p",
+	ifPlatform: "macos",
+	command: "extendSelectionUpward"
+}, {
+	key: "shift+ctrl+n",
+	ifPlatform: "macos",
+	command: "extendSelectionDownward"
+}, {
+	key: "shift+ctrl+a",
+	ifPlatform: "macos",
+	command: "extendToMathFieldStart"
+}, {
+	key: "shift+ctrl+e",
+	ifPlatform: "macos",
+	command: "extendToMathFieldEnd"
+}, {
+	key: "alt+ctrl+b",
+	ifPlatform: "macos",
+	command: "moveToPreviousWord"
+}, {
+	key: "alt+ctrl+f",
+	ifPlatform: "macos",
+	command: "moveToNextWord"
+}, {
+	key: "shift+alt+ctrl+b",
+	ifPlatform: "macos",
+	command: "extendToPreviousWord"
+}, {
+	key: "shift+alt+ctrl+f",
+	ifPlatform: "macos",
+	command: "extendToNextWord"
+}, {
+	key: "ctrl+h",
+	ifPlatform: "macos",
+	command: "deleteBackward"
+}, {
+	key: "ctrl+d",
+	ifPlatform: "macos",
+	command: "deleteForward"
+}, {
+	key: "ctrl+l",
+	ifPlatform: "macos",
+	command: "scrollIntoView"
+}, {
+	key: "[NumpadDivide]",
+	ifMode: "math",
+	command: ["insert", "\\frac{#@}{#?}"]
+}, {
+	key: "/",
+	ifMode: "math",
+	command: ["insert", "\\frac{#@}{#?}"]
+}, {
+	key: "[IntlBackslash]",
+	ifLayout: ["apple.german"],
+	ifMode: "math",
+	command: ["insert", "^"]
+}]

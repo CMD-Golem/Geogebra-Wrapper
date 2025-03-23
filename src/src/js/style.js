@@ -1,7 +1,3 @@
-document.getElementsByClassName("first_el")[0].addEventListener("click", select);
-document.getElementsByClassName("last_el")[0].addEventListener("click", select);
-
-
 // Mobile submenu
 // ###################################################
 if (navigator.maxTouchPoints > 1) {
@@ -100,95 +96,47 @@ function SubMenuHide(event) {
 	}
 }
 
-// Select and Move functions
+// mathfield
 // ###################################################
-var timer;
+// create first math-field
+var mathbox = document.querySelector("math-box");
+var math_id_counter = 0;
 
-function select(e) {
-	var input = e.target;
-	document.getElementById("input_el").id = "";
-
-	// Get position of cursour relative to element
-	var cursor_pos = e.clientX - input.getBoundingClientRect().left;
-	var center = input.offsetWidth / 2;
-
-	if (cursor_pos >= center) {
-		input.id = "input_el";
-	}
-	else {
-		selectPrev(input);
-	}
+function addMathLine() {
+	var el = document.createElement("math-field");
+	el.addEventListener("focus", () => { el.classList.add(".activeMath") });
+	el.addEventListener("blur", () => { el.classList.remove(".activeMath") });
+	el.id = math_id_counter;
+	math_id_counter++;
+	mathbox.appendChild(el);
+	el.focus();
 }
 
-// select next
-var select_prev_button = document.getElementById("select_prev");
-var select_prev_timer;
+addMathLine();
 
-select_prev_button.onpointerdown = function() {
-	preSelectPrev();
-}
-select_prev_button.onpointerup = function() {
-	clearTimeout(select_prev_timer);
-}
+// disable sounds
+MathfieldElement.soundsDirectory = null;
 
-function preSelectPrev() {
-	select_prev_timer = setTimeout(preSelectPrev, 200);
-	selectPrev(document.getElementById('input_el'));
-}
+// load keyboard latex
+MathLive.renderMathInDocument();
 
-function selectPrev(input) {
-	input.id = "";
-	// If el is operator select child
-	if (input.classList.contains("operator")) {
-		input.lastElementChild.id = "input_el";
-	}
-	// test if prev el exists
-	else if (input.previousElementSibling != null) {
-		input.previousElementSibling.id = "input_el";
-	}
-	// test if parent node isn't input box
-	else if (input.parentNode.id != "input_box") {
-		input.parentNode.previousElementSibling.id = "input_el";
-	}
-	else {
-		input.id = "input_el";
-	}
+// overwrite default keybindings and inline shortcuts:
+// mathlive.min.js: var um and var Ba
+
+// change geogebra grid
+// ###################################################
+function setAxisSteps(steps) {
+	if (steps == "xpi") ggbApplet.setAxisSteps(1, "pi", 0);
+	else if (steps == "ypi") ggbApplet.setAxisSteps(1, 0, "pi");
+	else if (steps == "xpi2") ggbApplet.setAxisSteps(1, "pi/2", 0);
+	else if (steps == "ypi2") ggbApplet.setAxisSteps(1, 0, "pi/2");
+	else ggbApplet.setAxisSteps(1, 0, 0);
 }
 
-// select next
-var select_next_button = document.getElementById("select_next");
-var select_next_timer;
-
-select_next_button.onpointerdown = function() {
-	selectNext();
-}
-select_next_button.onpointerup = function() {
-	clearTimeout(select_next_timer);
+function setColor(obj, color) {
+	ggbApplet.setColor(obj, color_r, color_g, color_b);
 }
 
-function selectNext() {
-	var input = document.getElementById("input_el");
-	select_next_timer = setTimeout(selectNext, 200);
-	input.id = "";
-	// test if next el exists
-	if (input.nextElementSibling != null) {
-		// test if next el is operator
-		if (input.nextElementSibling.classList.contains("operator")) {
-			input.nextElementSibling.firstElementChild.id = "input_el";
-		}
-		// if last el readd input
-		else if (input.nextElementSibling.classList.contains("last_el")) {
-			input.id = "input_el";
-		}
-		else {
-			input.nextElementSibling.id = "input_el";
-		}
-	}
-	// test if parent node isn't input box
-	else if (input.parentNode.id != "input_box") {
-		input.parentNode.id = "input_el";
-	}
-	else {
-		input.id = "input_el";
-	}
+function setVisibility(obj, state) {
+	ggbApplet.setVisible(obj, state);
 }
