@@ -10,7 +10,7 @@ async function load() {
 	var base64 = btoa(binary);
 
 	ggbApplet = new GGBApplet({
-		appName: "classic",
+		appName: "cas",
 		width: 800,
 		height: 800,
 		editorBackgroundColor: "rgb(31,33,35)",
@@ -20,7 +20,7 @@ async function load() {
 		ggbBase64: base64
 	}, true);
 
-	// ggbApplet.setHTML5Codebase('src/geogebra/HTML5/5.0/web3d/');
+	ggbApplet.setHTML5Codebase('src/geogebra/HTML5/5.0/web3d/');
 	ggbApplet.inject("ggb-element");
 }
 
@@ -29,15 +29,16 @@ load()
 
 function calc() {
 	var obj = ggbApplet.evalCommandGetLabels("Solve(0=x^2+5x-3)");
+	// ggbApplet.evalCommandGetLabels("Numeric(Solve(25x^2+3x-5))") 
 	var latex = ggbApplet.getLaTeXString(obj);
 	ggbApplet.setColor(obj, 255,0,0);
 	ggbApplet.setVisible(obj, true);
 	return latex;
+}
 
-	// ggbApplet.setMode("1001")
-	// ggbApplet.setMode("1002")
-
-	
+function startGeogebraCmd(cmd) {
+	// var latex ggbApplet.getLaTeXString(obj);
+	// ggbApplet.renameObject("A");
 }
 
 
