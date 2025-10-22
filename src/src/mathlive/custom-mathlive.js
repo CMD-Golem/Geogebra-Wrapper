@@ -15,6 +15,10 @@ var Ba = {
 		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
 		value: "\\exponentialE"
 	},
+	dd: {
+		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
+		value: "\\differentialD"
+	},
 	inf: "\\infty",
 	"\u221E": "\\infty",
 	oo: {
@@ -56,18 +60,6 @@ var Ba = {
 	log: "\\log_{#?}(#?)",
 	ln: "\\ln(#?)",
 	lim: "\\lim_{#?\\to#?}(#?)",
-	dx: {
-		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
-		value: "\\differentialD x"
-	},
-	dy: {
-		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
-		value: "\\differentialD y"
-	},
-	dt: {
-		after: "nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text",
-		value: "\\differentialD t"
-	},
 	"\u2260": "\\ne",
 	"!=": "\\ne",
 	"*": "\\cdot"

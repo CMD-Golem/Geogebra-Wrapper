@@ -171,6 +171,10 @@ td * {
 	left: -4px;
 }
 
+.submenu_small {
+	font-size: 60%;
+}
+
 @media (pointer: fine) {
 	td:hover {
 		background-color: var(--light-color);

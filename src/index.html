@@ -4,19 +4,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Geogebra Wrapper</title>
-    <script src="src/geogebra/deployggb.js"></script>
+	<script src="src/geogebra/deployggb.js"></script>
 	<!-- <script src="https://www.geogebra.org/apps/deployggb.js"></script> -->
 	<script src="src/mathlive/mathlive.min.js"></script>
+
 	<script defer src="src/js/main.js"></script>
-	<script defer src="src/js/style.js"></script>
+	<script defer src="src/js/keyboard.js"></script>
+	<script defer src="src/js/geogebra.js"></script>
+	<script defer src="src/js/mathfield.js"></script>
+
 	<link rel="stylesheet" href="src/style/style.css">
+	<link rel="shortcut icon" href="favicon.svg">
 </head>
 <body>
 	<div id="ggb-element"></div>
 
 	<math-box></math-box>
 	
-	<main>
+	<main onpointerdown="event.preventDefault()">
 		<table>
 			<tr>
 				<td class="menu" style="font-size: 70%;"><script type="math/tex" mode="display">f&#60;&#62;</script></td>
@@ -30,87 +35,92 @@
 				<td class="has_submenu">
 					<span><script type="math/tex" mode="display">()</script></span>
 					<div class="submenu">
-						<p onclick=""><script type="math/tex" mode="display">()</script></p>
-						<p onclick=""><script type="math/tex" mode="display">(</script></p>
-						<p onclick=""><script type="math/tex" mode="display">)</script></p>
+						<p onclick="insertMath('(#0)')"><script type="math/tex" mode="display">()</script></p>
+						<p onclick="insertMath('(')"><script type="math/tex" mode="display">(</script></p>
+						<p onclick="insertMath(')')"><script type="math/tex" mode="display">)</script></p>
 					</div>
 				</td>
 				<td class="has_submenu" style="font-size: smaller;">
 					<span><script type="math/tex" mode="display">\sin</script></span>
 					<div class="submenu">
-						<p onclick=""><script type="math/tex" mode="display">\sin</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\cos</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\tan</script></p>
+						<p onclick="insertMath('sin(#0)')"><script type="math/tex" mode="display">\sin</script></p>
+						<p onclick="insertMath('cos(#0)')"><script type="math/tex" mode="display">\cos</script></p>
+						<p onclick="insertMath('tan(#0)')"><script type="math/tex" mode="display">\tan</script></p>
 					</div>
 					<div class="submenu submenu_top">
-						<p onclick=""><script type="math/tex" mode="display">\operatorname{asin}</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\operatorname{acos}</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\operatorname{atan}</script></p>
+						<p onclick="insertMath('\\arctan(#0)')"><script type="math/tex" mode="display">\operatorname{asin}</script></p>
+						<p onclick="insertMath('\\arccos(#0)')"><script type="math/tex" mode="display">\operatorname{acos}</script></p>
+						<p onclick="insertMath('\\arcsin(#0)')"><script type="math/tex" mode="display">\operatorname{atan}</script></p>
 					</div>
 				</td>
-				<td class="number" onclick="">7</td>
-				<td class="number" onclick="">8</td>
-				<td class="number" onclick="">9</td>
-				<td onclick="">&#247;</td>
+				<td class="number" onclick="insertMath('7')">7</td>
+				<td class="number" onclick="insertMath('8')">8</td>
+				<td class="number" onclick="insertMath('9')">9</td>
+				<td onclick="insertMath('\\frac{#@}{#?}')">&#247;</td>
 			</tr>
 			<tr>
 				<td class="has_submenu" style="font-size: 70%;">
-					<span><script type="math/tex" mode="display">\frac{▢}{▢}</script></span>
+					<span><script type="math/tex" mode="display">\frac{\differentialD}{\differentialD x}</script></span>
 					<div class="submenu">
-						<p onclick=""><script type="math/tex" mode="display">\frac{▢}{▢}</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\frac{▢}{2}</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\frac{▢}{3}</script></p>
+						<p onclick="insertMath('\\frac{\\differentialD}{\\differentialD x}(#0)')"><script type="math/tex" mode="display">\frac{\differentialD}{\differentialD x}</script></p>
+						<p onclick="insertMath('\\frac{\\differentialD}{\\differentialD #?}(#0)')"><script type="math/tex" mode="display">\frac{\differentialD}{\differentialD ▢}</script></p>
+						<p onclick="insertMath('\\lim_{#?\\to#?}(#?)')"><script type="math/tex" mode="display">\lim_{▢\to▢}</script></p>
+					</div>
+					<div class="submenu submenu_top submenu_small">
+						<p onclick="insertMath('\\int #0 \\differentialD x')"><script type="math/tex" mode="display">\int ▢ \differentialD x</script></p>
+						<p onclick="insertMath('\\int #0 \\differentialD #?')"><script type="math/tex" mode="display">\int ▢ \differentialD ▢</script></p>
+						<p onclick="insertMath('\\int_{#?}^{#?} #0 \\differentialD #?')"><script type="math/tex" mode="display">\int_{▢}^{▢} ▢ \differentialD ▢</script></p>
 					</div>
 				</td>
 				<td class="has_submenu" style="font-size: 70%;">
 					<span><script type="math/tex" mode="display">\sqrt{▢}</script></span>
 					<div class="submenu">
-						<p onclick=""><script type="math/tex" mode="display">\sqrt{▢}</script></p>
-						<p onclick=""><script type="math/tex" mode="display">\sqrt[▢]{▢}</script></p>
+						<p onclick="insertMath('\\sqrt{#0}')"><script type="math/tex" mode="display">\sqrt{▢}</script></p>
+						<p onclick="insertMath('\\sqrt[#?]{#0}')"><script type="math/tex" mode="display">\sqrt[▢]{▢}</script></p>
 					</div>
 				</td>
-				<td class="number" onclick="">4</td>
-				<td class="number" onclick="">5</td>
-				<td class="number" onclick="">6</td>
-				<td onclick="">&#215;</td>
+				<td class="number" onclick="insertMath('4')">4</td>
+				<td class="number" onclick="insertMath('5')">5</td>
+				<td class="number" onclick="insertMath('6')">6</td>
+				<td onclick="insertMath('#@\\cdot')">&#215;</td>
 			</tr>
 			<tr>
 				<td class="has_submenu" style="font-size: smaller;" onclick="">
 					<span><script type="math/tex" mode="display">▢^2</script></span>
 					<div class="submenu">
-						<p><script type="math/tex" mode="display">▢^2</script></p>
-						<p><script type="math/tex" mode="display">▢^3</script></p>
-						<p><script type="math/tex" mode="display">▢^▢</script></p>
+						<p onclick="insertMath('#@^2', 'insertAfter')"><script type="math/tex" mode="display">▢^2</script></p>
+						<p onclick="insertMath('#@^3', 'insertAfter')"><script type="math/tex" mode="display">▢^3</script></p>
+						<p onclick="insertMath('#@^#?', 'insertAfter')"><script type="math/tex" mode="display">▢^▢</script></p>
 					</div>
 				</td>
 				<td class="has_submenu" style="font-size: 70%;">
 					<span><script type="math/tex" mode="display">\log_▢</script></span>
 					<div class="submenu">
-						<p><script type="math/tex" mode="display">\log_▢</script></p>
-						<p><script type="math/tex" mode="display">log_2</script></p>
-						<p><script type="math/tex" mode="display">\lg</script></p>
-						<p><script type="math/tex" mode="display">\ln</script></p>
+						<p onclick="insertMath('\\log_{#?}(#0)')"><script type="math/tex" mode="display">\log_▢</script></p>
+						<p onclick="insertMath('log_2(#0)')"><script type="math/tex" mode="display">log_2</script></p>
+						<p onclick="insertMath('\\lg(#0)')"><script type="math/tex" mode="display">\lg</script></p>
+						<p onclick="insertMath('\\ln(#0)')"><script type="math/tex" mode="display">\ln</script></p>
 					</div>
 				</td>
-				<td class="number" onclick="">1</td>
-				<td class="number" onclick="">2</td>
-				<td class="number" onclick="">3</td>
-				<td onclick="">-</td>
+				<td class="number" onclick="insertMath('1')">1</td>
+				<td class="number" onclick="insertMath('2')">2</td>
+				<td class="number" onclick="insertMath('3')">3</td>
+				<td onclick="insertMath('#@-')">-</td>
 			</tr>
 			<tr>
-				<td onclick=""><script type="math/tex" mode="display">\pi</script></td>
+				<td onclick="insertMath('\\pi')"><script type="math/tex" mode="display">\pi</script></td>
 				<td class="has_submenu" onclick="">
 					<span><script type="math/tex" mode="display">x</script></span>
 					<div class="submenu">
-						<p><script type="math/tex" mode="display">x</script></p>
-						<p><script type="math/tex" mode="display">y</script></p>
-						<p><script type="math/tex" mode="display">z</script></p>
+						<p onclick="insertMath('x')"><script type="math/tex" mode="display">x</script></p>
+						<p onclick="insertMath('y')"><script type="math/tex" mode="display">y</script></p>
+						<p onclick="insertMath('z')"><script type="math/tex" mode="display">z</script></p>
 					</div>
 				</td>
-				<td class="number" onclick="">0</td>
-				<td class="number" onclick="">.</td>
-				<td onclick="">=</td>
-				<td onclick="">+</td>
+				<td class="number" onclick="insertMath('0')">0</td>
+				<td class="number" onclick="insertMath('.')">.</td>
+				<td onclick="insertMath('=')">=</td>
+				<td onclick="insertMath('#@+')">+</td>
 			</tr>
 		</table>
 	</main>

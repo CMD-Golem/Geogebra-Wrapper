@@ -1,0 +1,7 @@
+Tokes
+	#0	Replace with selection or placeholder
+	#?	Replace with placeholder
+
+https://mathlive.io/mathfield/guides/shortcuts/
+https://mathlive.io/mathfield/guides/commands/
+https://mathlive.io/mathfield/guides/macros/

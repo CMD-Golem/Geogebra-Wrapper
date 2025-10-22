@@ -57,3 +57,11 @@ $0.getValue("plain-text")
 $0.executeCommand(["insert", "\\frac{#?}{2}", {insertionMode:"replaceSelection", selectionMode:"placeholder"}]);
 
 */
+
+function insertMath(math, insertion_mode) {
+
+	var selected_field = document.getElementsByClassName(".activeMath")[0];
+	if (insertion_mode == undefined) insertion_mode = "replaceSelection";
+	if (selected_field == undefined) return console.log("fail");
+	selected_field.executeCommand(["insert", math, {insertionMode:insertion_mode, selectionMode:"placeholder"}]);
+}

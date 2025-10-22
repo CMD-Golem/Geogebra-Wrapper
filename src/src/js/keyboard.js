@@ -2,7 +2,7 @@
 // ###################################################
 if (navigator.maxTouchPoints > 1) {
 	var last_menu, last_td;
-    var submenu = document.getElementsByClassName("has_submenu");
+	var submenu = document.getElementsByClassName("has_submenu");
 
 	for (var i = 0; i < submenu.length; i++) {
 		submenu[i].addEventListener("touchstart", SubMenuStart);
@@ -20,7 +20,7 @@ function SubMenuStart(event) {
 	}
 
 	last_td = td;
-	last_menu = td.getElementsByTagName("p")[0];
+	last_menu = td.querySelector("p");
 
 	td.classList.add("hover");
 }
@@ -31,9 +31,7 @@ function SubMenuMove(event) {
 	var el_cord = document.elementFromPoint(touch_el.clientX, touch_el.clientY);
 
 	var menu = el_cord.closest("P");
-	if (el_cord.tagName == "P") {
-		menu = el_cord;
-	}
+	if (el_cord.tagName == "P") menu = el_cord;
 
 	// Remove/ Add hover class to p
 	if (last_menu != undefined) {
@@ -42,7 +40,6 @@ function SubMenuMove(event) {
 	}
 	if (menu != null) {
 		last_menu = menu;
-
 		menu.classList.add("hover");
 	}
 }
@@ -63,14 +60,12 @@ function SubMenuEnd() {
 // Mouse Submenu
 // ###################################################
 if (window.matchMedia("(pointer: fine)").matches) {
-	document.getElementsByTagName("main")[0].addEventListener('contextmenu', event => {
+	document.querySelector("main").addEventListener('contextmenu', event => {
 		event.preventDefault();
 
 		var td_click = event.target;
 		var td_menu = td_click.closest(".has_submenu");
-		if (td_click.classList.contains("has_submenu")) {
-			td_menu = td_click;
-		}
+		if (td_click.classList.contains("has_submenu")) td_menu = td_click;
 
 		if (td_menu != null) {
 			td_menu.addEventListener("click", SubMenuHide);
@@ -82,6 +77,12 @@ if (window.matchMedia("(pointer: fine)").matches) {
 			}
 		}
 	});
+
+	var submenu = document.getElementsByClassName("has_submenu");
+
+	for (var i = 0; i < submenu.length; i++) {
+		submenu[i].addEventListener("click", SubMenuClick);
+	}
 }
 
 function SubMenuHide(event) {
@@ -96,47 +97,7 @@ function SubMenuHide(event) {
 	}
 }
 
-// mathfield
-// ###################################################
-// create first math-field
-var mathbox = document.querySelector("math-box");
-var math_id_counter = 0;
-
-function addMathLine() {
-	var el = document.createElement("math-field");
-	el.addEventListener("focus", () => { el.classList.add(".activeMath") });
-	el.addEventListener("blur", () => { el.classList.remove(".activeMath") });
-	el.id = math_id_counter;
-	math_id_counter++;
-	mathbox.appendChild(el);
-	el.focus();
-}
-
-addMathLine();
-
-// disable sounds
-MathfieldElement.soundsDirectory = null;
-
-// load keyboard latex
-MathLive.renderMathInDocument();
-
-// overwrite default keybindings and inline shortcuts:
-// mathlive.min.js: var um and var Ba
-
-// change geogebra grid
-// ###################################################
-function setAxisSteps(steps) {
-	if (steps == "xpi") ggbApplet.setAxisSteps(1, "pi", 0);
-	else if (steps == "ypi") ggbApplet.setAxisSteps(1, 0, "pi");
-	else if (steps == "xpi2") ggbApplet.setAxisSteps(1, "pi/2", 0);
-	else if (steps == "ypi2") ggbApplet.setAxisSteps(1, 0, "pi/2");
-	else ggbApplet.setAxisSteps(1, 0, 0);
-}
-
-function setColor(obj, color) {
-	ggbApplet.setColor(obj, color_r, color_g, color_b);
-}
-
-function setVisibility(obj, state) {
-	ggbApplet.setVisible(obj, state);
+function SubMenuClick(event) {
+	console.log(event)
+	// event.target.querySelector("submenu").children[0].click();
 }
