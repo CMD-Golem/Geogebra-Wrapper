@@ -8,19 +8,12 @@
 	--button-size: 99px;
 }
 
-html {
-	height: 100%;
-}
-
 body {
-	background-color: var(--darker-color);
-	min-height: 100%;
 	margin: 0;
 	color: var(--font-color);
 	font-family: FiraSans;
 	font-size: 50px;
-	display: flex;
-	flex-direction: column;
+	overflow: hidden;
 }
 
 p {
@@ -28,31 +21,66 @@ p {
 }
 
 main {
+	background-color: var(--darker-color);
+	display: flex;
+	flex-direction: column;
+	height: 100dvh;
+	width: 100%;
+}
+
+keyboard {
 	background-color: var(--dark-color);
 	width: 100%;
 	user-select: none;
-	margin-top: auto;
 	display: flex;
 	justify-content: center;
 	touch-action: none;
+	flex: 0;
+	position: relative;
+}
+
+keyboard button {
+	background-color: var(--dark-color);
+	display: block;
+	position: absolute;
+	padding: 0.5em;
+	border-radius: 100%;
+	color: inherit;
+	font-size: 20px;
+	border: none;
+	width: 50px;
+	aspect-ratio: 1/1;
+	right: 20px;
+	top: -70px;
 }
 
 /* mathfield */
 :root {
 	--primary: var(--dark-color);
-	--caret-color: #0040bc;
+	--caret-color: #0559ff;
 	--selection-color: var(--font-color); 
-	--selection-background-color: #1d3055;
-	--contains-highlight-background-color: var(--darker-color);
+	--selection-background-color: var(--light-color);
+	--contains-highlight-background-color: var(--dark-color);
+}
+
+math-list {
+	overflow: hidden;
+	overflow-y: auto;
+	flex: 1;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
 }
 
 math-box {
+	display: block;
 	background-color: var(--dark-color);
 	width: calc(100% - 40px - 1em);
 	margin: 20px;
 	padding: 0.5em;
-	border-radius: 2px;
-	overflow: scroll;
+	border-radius: 5px;
+	overflow-x: auto;
 }
 
 math-field {
@@ -169,10 +197,6 @@ td * {
 .submenu p.hover::after {
 	bottom: calc(-1 * var(--button-size) - 4px);
 	left: -4px;
-}
-
-.submenu_small {
-	font-size: 60%;
 }
 
 @media (pointer: fine) {

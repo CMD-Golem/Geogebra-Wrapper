@@ -13,22 +13,18 @@ if (navigator.maxTouchPoints > 1) {
 
 function SubMenuStart(event) {
 	// Add hover class to td
-	var touch_td = event.target;
-	var td = touch_td.closest(".has_submenu");
-	if (touch_td.classList.contains("has_submenu")) {
-		td = touch_td;
-	}
+	var target = event.currentTarget;
 
-	last_td = td;
-	last_menu = td.querySelector("p");
+	last_td = target;
+	last_menu = target.querySelector("p");
 
-	td.classList.add("hover");
+	target.classList.add("hover");
 }
 
 function SubMenuMove(event) {
 	// Get p element
-	var touch_el = event.changedTouches[0];
-	var el_cord = document.elementFromPoint(touch_el.clientX, touch_el.clientY);
+	var touch_event = event.changedTouches[0];
+	var el_cord = document.elementFromPoint(touch_event.clientX, touch_event.clientY);
 
 	var menu = el_cord.closest("P");
 	if (el_cord.tagName == "P") menu = el_cord;
@@ -53,51 +49,45 @@ function SubMenuEnd() {
 
 	// Remove classes
 	last_td.classList.remove("hover");
-	last_td.getElementsByTagName("p")[0].classList.add("hover");
+	last_td.querySelector("p").classList.add("hover");
 }
 
 
 // Mouse Submenu
 // ###################################################
 if (window.matchMedia("(pointer: fine)").matches) {
-	document.querySelector("main").addEventListener('contextmenu', event => {
-		event.preventDefault();
-
-		var td_click = event.target;
-		var td_menu = td_click.closest(".has_submenu");
-		if (td_click.classList.contains("has_submenu")) td_menu = td_click;
-
-		if (td_menu != null) {
-			td_menu.addEventListener("click", SubMenuHide);
-			td_menu.addEventListener("mouseleave", SubMenuHide);
-
-			var submenu = td_menu.getElementsByClassName("submenu");
-			for (var i = 0; i < submenu.length; i++) {
-				submenu[i].style.display = "flex";
-			}
-		}
-	});
-
 	var submenu = document.getElementsByClassName("has_submenu");
-
 	for (var i = 0; i < submenu.length; i++) {
 		submenu[i].addEventListener("click", SubMenuClick);
+		submenu[i].addEventListener("contextmenu", SubMenuContext);
 	}
 }
 
-function SubMenuHide(event) {
-	var td_menu = event.target.closest(".has_submenu");
+function SubMenuContext(event) {
+	var target = event.currentTarget;
+	target.classList.add("open_context");
+	target.addEventListener("mouseleave", SubMenuHide);
 
-	td_menu.removeEventListener("click", SubMenuHide);
-	td_menu.removeEventListener("mouseleave", SubMenuHide);
+	var submenu = target.getElementsByClassName("submenu");
+	for (var i = 0; i < submenu.length; i++) {
+		submenu[i].style.display = "flex";
+	}
+}
 
-	var submenu = td_menu.getElementsByClassName("submenu");
+function SubMenuHide(target, is_element) {
+	if (is_element == undefined) target = target.currentTarget;
+	target.classList.remove("open_context");
+	target.removeEventListener("mouseleave", SubMenuHide);
+
+	var submenu = target.getElementsByClassName("submenu");
 	for (var i = 0; i < submenu.length; i++) {
 		submenu[i].style.display = "none";
 	}
 }
 
 function SubMenuClick(event) {
-	console.log(event)
-	// event.target.querySelector("submenu").children[0].click();
+	var target = event.currentTarget;
+
+	if (target.classList.contains("open_context")) SubMenuHide(target, true);
+	else target.querySelector("p").click();
 }
