@@ -1,40 +1,59 @@
 var geogebra_approximate_result = false;
+var significants = 8;
 
 // translation function
 function geogebraStartCalc() {
-	var selected_field = document.getElementsByClassName("activeMath")[0];
-	var plain_input = selected_field.getValue("plain-text");
+	var math_box = document.querySelector(".activeMath");
+	var input_field = math_box.children[0];
+	var output_field = math_box.children[1];
+	var plain_input = input_field.getValue("plain-text");
+
+	console.log("Raw Input: " + plain_input);
 
 	// translation
 	geog_input = plain_input;
 
 	// Get Nummric result
-	if (geogebra_approximate_result) geog_input = `Numeric(${geog_input})`;
+	if (geogebra_approximate_result) geog_input = `Numeric(${geog_input}, ${significants})`;
 
 	// get geogebra response
+	console.log("Translated Input: " + geog_input);
 	var geog_label = ggbApplet.evalCommandGetLabels(geog_input);
 	var latex = ggbApplet.getLaTeXString(geog_label);
 
-	selected_field.executeCommand(["insert", latex, {insertionMode:"replaceAll"}]);
+	console.log("Output: " + geog_label, latex);
+
+	// handle empty output
+	if (geog_label == null) {
+		output_field.executeCommand(["insert", " ", {insertionMode:"replaceAll"}]);
+		return;
+	}
+	output_field.executeCommand(["insert", latex, {insertionMode:"replaceAll"}]);
+
+	// resize when needed
+	if (math_box.clientWidth < input_field.scrollWidth + output_field.scrollWidth) {
+		math_box.style.display = "block";
+	}
+	else math_box.style.display = "flex";
 
 	// show result
-	if (selected_field.getAttribute("data-show") == null) return;
+	if (math_box.getAttribute("data-show") == null) return;
 
 	// show in graph
 	ggbApplet.setColor(geog_label, 255,0,0);
 	ggbApplet.setVisible(geog_label, true);
 	
 	// get new label
-	var stored_label = selected_field.getAttribute("data-label");
+	var stored_label = math_box.getAttribute("data-label");
 	if (stored_label == null) {
-		selected_field.setAttribute("data-label", geog_label);
+		math_box.setAttribute("data-label", geog_label);
 		stored_label = geog_label;
 	}
 	// delete old label and rename
 	else {
 		ggbApplet.deleteObject(geog_label);
 		var success = ggbApplet.renameObject(geog_label, stored_label); // returns bool of success
-		console.log(success);
+		console.log("Deleted old label: " + success);
 	}
 }
 
@@ -83,7 +102,7 @@ async function loadGeogebra() {
 		ggbBase64: base64
 	}, true);
 
-	ggbApplet.setHTML5Codebase('src/geogebra/HTML5/5.0/web3d/');
+	// ggbApplet.setHTML5Codebase('src/geogebra/HTML5/5.0/web3d/');
 	ggbApplet.inject("ggb-element");
 }
 

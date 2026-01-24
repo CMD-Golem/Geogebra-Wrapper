@@ -1,18 +1,28 @@
 // create first math-field
-var mathbox = document.querySelector("math-box");
+var mathlist = document.querySelector("math-list");
 var math_id_counter = 0;
 
 function addMathLine() {
-	var el = document.createElement("math-field");
-	el.addEventListener("focus", () => { el.classList.add("activeMath") });
-	el.addEventListener("blur", () => { el.classList.remove("activeMath") });
-	// el.addEventListener("input", geogebraStartCalc);
-	el.id = math_id_counter;
+	mathlist.blur();
+	var box = document.createElement("math-box");
+	box.id = math_id_counter;
 	math_id_counter++;
-	mathbox.appendChild(el);
-	el.focus();
-	el.menuItems = [];
-	el.mathVirtualKeyboardPolicy = "manuall";
+	mathlist.appendChild(box);
+
+	var input = document.createElement("math-field");
+	input.classList.add("math_input");
+	input.addEventListener("focus", () => { box.classList.add("activeMath") });
+	input.addEventListener("blur", () => { box.classList.remove("activeMath") });
+	input.addEventListener("input", geogebraStartCalc);
+	box.appendChild(input);
+	input.focus();
+	input.menuItems = [];
+	input.mathVirtualKeyboardPolicy = "manuall";
+
+	var output = document.createElement("math-field");
+	output.classList.add("math_output");
+	output.setAttribute("readonly", true);
+	box.appendChild(output);
 }
 
 
@@ -26,9 +36,11 @@ addMathLine();
 
 // keyboard functions
 function insertMath(math, insertion_mode) {
-	var selected_field = document.getElementsByClassName("activeMath")[0];
+	var math_box = document.querySelector(".activeMath");
 	if (insertion_mode == undefined) insertion_mode = "replaceSelection";
-	if (selected_field == undefined) return console.log("fail");
+	if (math_box == undefined) return console.log("Nothing selected");
+
+	var selected_field = math_box.children[0];
 	selected_field.executeCommand(["insert", math, {insertionMode:insertion_mode, selectionMode:"placeholder"}]);
 }
 
@@ -42,7 +54,7 @@ function enterMath() {
 
 var move_math_timer;
 function moveMath(action) {
-	var selected_field = document.getElementsByClassName("activeMath")[0];
+	var selected_field = document.querySelector(".activeMath").children[0];
 	move_math_timer = setTimeout(moveMath, 150, action);
 
 	if (action == "forward") selected_field.executeCommand("moveToNextChar");

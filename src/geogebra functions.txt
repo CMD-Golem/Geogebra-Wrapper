@@ -1,0 +1,32 @@
+https://geogebra.github.io/docs/manual/en/commands/Factor/ & CFactor (complex)
+https://geogebra.github.io/docs/manual/en/commands/PartialFractions/
+
+https://geogebra.github.io/docs/manual/en/commands/Limit/
+
+https://geogebra.github.io/docs/manual/en/commands/ToComplex/
+https://geogebra.github.io/docs/manual/en/commands/ToPolar/
+
+https://geogebra.github.io/docs/manual/en/commands/Integral/ & NIntegral (numerically)
+https://geogebra.github.io/docs/manual/en/commands/IntegralBetween/
+https://geogebra.github.io/docs/manual/en/commands/Derivative/ & NDerivative (numerically) & ImplicitDerivative
+
+https://geogebra.github.io/docs/manual/en/commands/Solve/ & NSolve (numerically) & CSolve (complex) & SolveODE (differential equation)
+
+https://geogebra.github.io/docs/manual/en/commands/Max/
+https://geogebra.github.io/docs/manual/en/commands/Min/
+https://geogebra.github.io/docs/manual/en/commands/Asymptote/
+https://geogebra.github.io/docs/manual/en/commands/Extremum/
+https://geogebra.github.io/docs/manual/en/commands/Root/ & ComplexRoot
+https://geogebra.github.io/docs/manual/en/commands/Intersect/
+https://geogebra.github.io/docs/manual/en/commands/Tangent/
+https://geogebra.github.io/docs/manual/en/commands/InflectionPoint/
+
+https://geogebra.github.io/docs/manual/en/commands/Sum/
+https://geogebra.github.io/docs/manual/en/commands/Iteration/
+
+https://geogebra.github.io/docs/manual/en/commands/Vector/
+https://geogebra.github.io/docs/manual/en/commands/Cross/
+https://geogebra.github.io/docs/manual/en/commands/Dot/
+
+https://geogebra.github.io/docs/manual/en/commands/Determinant/
+https://geogebra.github.io/docs/manual/en/commands/MatrixRank/

@@ -14,6 +14,10 @@ body {
 	font-family: FiraSans;
 	font-size: 50px;
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 100dvh;
+	width: 100%;
 }
 
 p {
@@ -22,12 +26,61 @@ p {
 
 main {
 	background-color: var(--darker-color);
-	display: flex;
-	flex-direction: column;
-	height: 100dvh;
-	width: 100%;
+	flex: 1;
+	overflow: hidden;
+	overflow-y: auto;
 }
 
+/* mathfield */
+:root {
+	--primary: var(--dark-color);
+	--caret-color: #0559ff;
+	--selection-color: var(--font-color); 
+	--selection-background-color: var(--light-color);
+	--contains-highlight-background-color: var(--dark-color);
+}
+
+math-list {
+	flex: 1;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+math-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	background-color: var(--dark-color);
+	width: calc(100% - 20px);
+	margin: 10px;
+	border-radius: 5px;
+}
+
+math-field {
+	background-color: var(--dark-color);
+	color: var(--font-color);
+	border: none;
+	outline: none !important;
+	padding: 0.3em;
+	max-width: calc(100% - 0.6em);
+}
+
+math-field::part(virtual-keyboard-toggle), math-field::part(menu-toggle) {
+	display: none;
+}
+
+math-field:first-child {
+	flex: 1;
+}
+
+math-field:last-child {
+	float: right;
+}
+
+
+/* keyboard */
+/* ################################################## */
 keyboard {
 	background-color: var(--dark-color);
 	width: 100%;
@@ -54,52 +107,9 @@ keyboard button {
 	top: -70px;
 }
 
-/* mathfield */
-:root {
-	--primary: var(--dark-color);
-	--caret-color: #0559ff;
-	--selection-color: var(--font-color); 
-	--selection-background-color: var(--light-color);
-	--contains-highlight-background-color: var(--dark-color);
-}
-
-math-list {
-	overflow: hidden;
-	overflow-y: auto;
-	flex: 1;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-
-}
-
-math-box {
-	display: block;
-	background-color: var(--dark-color);
-	width: calc(100% - 40px - 1em);
-	margin: 20px;
-	padding: 0.5em;
-	border-radius: 5px;
-	overflow-x: auto;
-}
-
-math-field {
-	background-color: var(--dark-color);
-	color: var(--font-color);
-	border: none;
-	outline: none !important;
-	width: 100%;
-}
-
-math-field::part(virtual-keyboard-toggle), math-field::part(menu-toggle) {
-	display: none;
-}
-
-
-/* keyboard */
-/* ################################################## */
 table {
 	width: 600px;
+	height: 517px;
 }
 
 td {
