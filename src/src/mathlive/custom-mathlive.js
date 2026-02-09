@@ -26,7 +26,7 @@ var Ba = {
 		value: "\\infty"
 	},
 	"\u2211": "\\sum",
-	sum: "\\sum_{#?}^{#?}",
+	sum: "\\sum_{i=#?}^{#?}",
 	int: "\\int_{#?}^{#?}",
 	prod: "\\prod_{#?}^{#?}",
 	sqrt: "\\sqrt{#?}",

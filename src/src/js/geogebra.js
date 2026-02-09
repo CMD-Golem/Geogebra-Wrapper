@@ -7,9 +7,10 @@ function geogebraStartCalc() {
 	var input_field = math_box.children[0];
 	var output_field = math_box.children[1];
 	var plain_input = input_field.getValue("plain-text");
+	// var math_json = input_field.getValue("math-json");
 
 	console.log("Raw Input: " + plain_input);
-
+	
 	// translation
 	geog_input = plain_input;
 

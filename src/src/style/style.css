@@ -108,8 +108,8 @@ keyboard button {
 }
 
 table {
-	width: 600px;
-	height: 517px;
+	width: 100%;
+	max-width: 600px;
 }
 
 td {
