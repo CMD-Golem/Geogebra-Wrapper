@@ -6,6 +6,8 @@ https://mathlive.io/mathfield/guides/shortcuts/
 https://mathlive.io/mathfield/guides/commands/
 https://mathlive.io/mathfield/guides/macros/
 
+Output is asciimath https://asciimath.org/
+
 Geogebra
 https://geogebra.github.io/docs/reference/en/GeoGebra_Apps_Embedding/#_offline_and_self_hosted_solution
 https://geogebra.github.io/integration/example-customized-calculators.html?appName=notes&width=800&height=600&showToolBar&allowStyleBar&showZoomButtons&borderRadius=8&hn

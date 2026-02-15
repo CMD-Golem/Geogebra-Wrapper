@@ -57,25 +57,39 @@ math-box {
 	border-radius: 5px;
 }
 
+result-box {
+	display: flex;
+	float: right;
+	flex-wrap: nowrap;
+}
+
+result-box button {
+	margin: auto 0;
+	height: 35px;
+	width: 35px;
+	font-size: large;
+	color: inherit;
+	border: none;
+	border-radius: 3px;
+	background-color: var(--darker-color);
+}
+result-box button:hover {
+	background-color: var(--light-color);
+}
+
 math-field {
 	background-color: var(--dark-color);
 	color: var(--font-color);
 	border: none;
 	outline: none !important;
+	margin: auto 0;
 	padding: 0.3em;
 	max-width: calc(100% - 0.6em);
+	flex: 1;
 }
 
 math-field::part(virtual-keyboard-toggle), math-field::part(menu-toggle) {
 	display: none;
-}
-
-math-field:first-child {
-	flex: 1;
-}
-
-math-field:last-child {
-	float: right;
 }
 
 

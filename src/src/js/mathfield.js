@@ -1,30 +1,60 @@
 // create first math-field
 var mathlist = document.querySelector("math-list");
-var math_id_counter = 0;
+var math_pos_counter = 0;
 
 function addMathLine() {
 	mathlist.blur();
 	var box = document.createElement("math-box");
-	box.id = math_id_counter;
-	math_id_counter++;
+	box.setAttribute("data-numeric", !default_numeric);
+	box.addEventListener("click", () => {
+		changeActiveMath(box);
+	}, true);
+	box.setAttribute("data-pos", math_pos_counter);
+	math_pos_counter++;
 	mathlist.appendChild(box);
+	changeActiveMath(box);
 
 	var input = document.createElement("math-field");
 	input.classList.add("math_input");
-	input.addEventListener("focus", () => { box.classList.add("activeMath") });
-	input.addEventListener("blur", () => { box.classList.remove("activeMath") });
+	// input.addEventListener("focus", () => { box.classList.add("activeMath") });
+	// input.addEventListener("blur", () => { box.classList.remove("activeMath") });
 	input.addEventListener("input", geogebraStartCalc);
 	box.appendChild(input);
 	input.focus();
 	input.menuItems = [];
 	input.mathVirtualKeyboardPolicy = "manuall";
+	input.inlineShortcuts = inline_shortcuts;
+	input.keybindings = keybindings;
 
+	var result = document.createElement("result-box");
+	var toggle_numeric = document.createElement("button");
+	toggle_numeric.addEventListener("click", () => {
+		toggleNumeric(toggle_numeric, box);
+		geogebraStartCalc();
+	});
+	toggleNumeric(toggle_numeric, box);
+	
 	var output = document.createElement("math-field");
 	output.classList.add("math_output");
 	output.setAttribute("readonly", true);
-	box.appendChild(output);
+
+	result.appendChild(toggle_numeric);
+	result.appendChild(output);
+	box.appendChild(result);
 }
 
+function changeActiveMath(box) {
+	var active = document.getElementById("activeMath");
+	if (active != null) active.id = "";
+	box.id = "activeMath";
+}
+
+function toggleNumeric(button, box) {
+	box.toggleAttribute("data-numeric");
+	var status = box.getAttribute("data-numeric");
+	if (status != null) button.innerHTML = "≈";
+	else button.innerHTML = "=";
+}
 
 
 // init
@@ -36,7 +66,7 @@ addMathLine();
 
 // keyboard functions
 function insertMath(math, insertion_mode) {
-	var math_box = document.querySelector(".activeMath");
+	var math_box = document.getElementById("activeMath");
 	if (insertion_mode == undefined) insertion_mode = "replaceSelection";
 	if (math_box == undefined) return console.log("Nothing selected");
 
@@ -54,7 +84,7 @@ function enterMath() {
 
 var move_math_timer;
 function moveMath(action) {
-	var selected_field = document.querySelector(".activeMath").children[0];
+	var selected_field = document.getElementById("activeMath").children[0];
 	move_math_timer = setTimeout(moveMath, 150, action);
 
 	if (action == "forward") selected_field.executeCommand("moveToNextChar");

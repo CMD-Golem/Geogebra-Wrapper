@@ -1,21 +1,42 @@
-var geogebra_approximate_result = false;
-var significants = 8;
-
 // translation function
 function geogebraStartCalc() {
-	var math_box = document.querySelector(".activeMath");
+	var math_box = document.getElementById("activeMath");
 	var input_field = math_box.children[0];
-	var output_field = math_box.children[1];
+	var output_field = math_box.children[1].children[1];
 	var plain_input = input_field.getValue("plain-text");
-	// var math_json = input_field.getValue("math-json");
 
 	console.log("Raw Input: " + plain_input);
 	
 	// translation
-	geog_input = plain_input;
+	// var geog_input = translation(plain_input)
+	var geog_input = "";
+	var lastIndex = 0;
+	var match;
+	var regex = new RegExp(translation_regex, "g")
+
+	while ((match = regex.exec(plain_input)) !== null) {
+		var found = match[0];
+		var pos = match.index;
+
+		// add text before match
+		geog_input += plain_input.slice(lastIndex, pos);
+		var rule = translation_layer[found];
+
+		if (typeof rule == "function") var {length, insert} = rule(pos, plain_input);
+		else {
+			var length = found.length;
+			var insert = rule;
+		}
+		if (insert == null) return;
+
+		geog_input += insert;
+		lastIndex = pos + length;
+	}
+
+	geog_input += plain_input.slice(lastIndex);
 
 	// Get Nummric result
-	if (geogebra_approximate_result) geog_input = `Numeric(${geog_input}, ${significants})`;
+	if (math_box.getAttribute("data-numeric") != null) geog_input = `Numeric(${geog_input}, ${significants})`;
 
 	// get geogebra response
 	console.log("Translated Input: " + geog_input);
@@ -32,7 +53,7 @@ function geogebraStartCalc() {
 	output_field.executeCommand(["insert", latex, {insertionMode:"replaceAll"}]);
 
 	// resize when needed
-	if (math_box.clientWidth < input_field.scrollWidth + output_field.scrollWidth) {
+	if (math_box.clientWidth < input_field.scrollWidth + math_box.children[1].scrollWidth) {
 		math_box.style.display = "block";
 	}
 	else math_box.style.display = "flex";
