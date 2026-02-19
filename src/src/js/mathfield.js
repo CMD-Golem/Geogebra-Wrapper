@@ -18,7 +18,7 @@ function addMathLine() {
 	input.classList.add("math_input");
 	// input.addEventListener("focus", () => { box.classList.add("activeMath") });
 	// input.addEventListener("blur", () => { box.classList.remove("activeMath") });
-	input.addEventListener("input", geogebraStartCalc);
+	input.addEventListener("input", geogebraDebounceCalc);
 	box.appendChild(input);
 	input.focus();
 	input.menuItems = [];
@@ -30,13 +30,13 @@ function addMathLine() {
 	var toggle_numeric = document.createElement("button");
 	toggle_numeric.addEventListener("click", () => {
 		toggleNumeric(toggle_numeric, box);
-		geogebraStartCalc();
+		geogebraDebounceCalc();
 	});
 	toggleNumeric(toggle_numeric, box);
 	
 	var output = document.createElement("math-field");
 	output.classList.add("math_output");
-	output.setAttribute("readonly", true);
+	output.setAttribute("read-only", true);
 
 	result.appendChild(toggle_numeric);
 	result.appendChild(output);

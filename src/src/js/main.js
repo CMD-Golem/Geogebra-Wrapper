@@ -9,16 +9,17 @@ var significants = 8;
 
 var math_data = [
 	{input:"pi", value:"\\pi", search:null, after:undefined},
-	{input:"ii", value:"\\imaginaryI", search:null, after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
-	{input:"ee", value:"\\exponentialE", search:null, after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	{input:"ii", value:"\\imaginaryI", search:"i", regex:"(?<![A-Za-z])i(?![A-Za-z])", replace:"\u03af", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	{input:"jj", value:"\\imaginaryJ", search:"j", regex:"(?<![A-Za-z])j(?![A-Za-z])", replace:"\u03af", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	{input:"ee", value:"\\exponentialE", search:"e", regex:"(?<![A-Za-z])e(?![A-Za-z])", replace:"\u212f", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
 	{input:"dd", value:"\\differentialD", search:null, after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
 	{input:"oo", value:"\\infty", search:"oo", regex:"(?<![A-Za-z])oo(?![A-Za-z])", replace:"\u221E", after:"nothing+digit+frac+surd+binop+relop+punct+array+openfence+closefence+space"},
 	{input:"inf", value:"\\infty", search:null, after:undefined},
 	{input:"\u221E", value:"\\infty", search:null, after:undefined},
 	{input:"\u2211", value:"\\sum", search:"sum", regex:"sum", replace:sum, after:undefined},
 	{input:"sum", value:"\\sum_{k=0}^{#?}(#?)", search:null, after:undefined},
-	{input:"int", value:"\\int_{#?}^{#?}(#?\\differentialD#?)", search:null, after:undefined},
-	{input:"prod", value:"\\prod_{#?}^{#?}(#?)", search:null, after:undefined},
+	{input:"int", value:"\\int_{#?}^{#?}(#?\\differentialD#?)", search:"int", regex:"int", replace:int, after:undefined},
+	{input:"prod", value:"\\prod_{k=1}^{#?}(#?)", search:"prod", regex:"prod", replace:prod, after:undefined},
 	{input:"sqrt", value:"\\sqrt{#?}", search:null, after:undefined},
 	{input:"cbrt", value:"\\sqrt[3]{#?}", search:null, after:undefined},
 	{input:"root", value:"\\sqrt[#?]{#?}", search:"root", regex:"root", replace:nroot, after:undefined},
@@ -164,4 +165,3 @@ Katex:
 https://cortexjs.io/mathfield/
 
 */
-

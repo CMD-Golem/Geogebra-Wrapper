@@ -1,3 +1,10 @@
+var timeoutId = null;
+
+function geogebraDebounceCalc() {
+	window.clearTimeout(timeoutId);
+	timeoutId = window.setTimeout(geogebraStartCalc, 200);
+}
+
 // translation function
 function geogebraStartCalc() {
 	var math_box = document.getElementById("activeMath");
@@ -7,33 +14,8 @@ function geogebraStartCalc() {
 
 	console.log("Raw Input: " + plain_input);
 	
-	// translation
-	// var geog_input = translation(plain_input)
-	var geog_input = "";
-	var lastIndex = 0;
-	var match;
-	var regex = new RegExp(translation_regex, "g")
-
-	while ((match = regex.exec(plain_input)) !== null) {
-		var found = match[0];
-		var pos = match.index;
-
-		// add text before match
-		geog_input += plain_input.slice(lastIndex, pos);
-		var rule = translation_layer[found];
-
-		if (typeof rule == "function") var {length, insert} = rule(pos, plain_input);
-		else {
-			var length = found.length;
-			var insert = rule;
-		}
-		if (insert == null) return;
-
-		geog_input += insert;
-		lastIndex = pos + length;
-	}
-
-	geog_input += plain_input.slice(lastIndex);
+	// translation25+
+	var geog_input = translation(plain_input);
 
 	// Get Nummric result
 	if (math_box.getAttribute("data-numeric") != null) geog_input = `Numeric(${geog_input}, ${significants})`;
@@ -80,10 +62,6 @@ function geogebraStartCalc() {
 }
 
 
-
-
-
-
 // ###################################################
 // change geogebra grid
 function setAxisSteps(steps) {
@@ -128,4 +106,4 @@ async function loadGeogebra() {
 	ggbApplet.inject("ggb-element");
 }
 
-loadGeogebra()
+loadGeogebra();
