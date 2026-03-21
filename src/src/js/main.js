@@ -1,7 +1,3 @@
-// https://geogebra.github.io/docs/reference/en/GeoGebra_App_Parameters/
-// "showLogging": true,
-
-
 document.querySelector("body").addEventListener("contextmenu", (e) => { e.preventDefault() });
 
 var default_numeric = false;
@@ -54,7 +50,8 @@ var math_data = [
 	{input:"\u2260", value:"\\ne", search:null, after:undefined},
 	{input:"!=", value:"\\ne", search:null, after:undefined},
 	{input:"*", value:"\\cdot", search:null, after:undefined},
-]
+	{input:"Ans", value:"\\operatorname{Ans}", search:"A n s ", regex:"A n s ", replace:ans, after:undefined},
+];
 
 var inline_shortcuts = {};
 var translation_layer = {};
@@ -150,18 +147,30 @@ const keybindings = [
 	{key:"[NumpadDivide]", ifMode:"math", command:["insert", "\\frac{#@}{#?}"]},
 	{key:"/", ifMode:"math", command:["insert", "\\frac{#@}{#?}"]},
 	{key:"[IntlBackslash]", ifLayout:["apple.german"], ifMode:"math", command:["insert", "^"]}
-]
+];
 
-/*
+const keepMenuItems = ["add-row-above", "add-row-below", "add-column-before", "add-column-after", "delete-row", "delete-column", "insert-matrix", "cut", "paste", "select-all"]
+const menuItems = [];
 
-Katex:
-{\cvec{5\\3\\2}+\cvec{8\\3\\2}} -> siehe chatgpt für makro
+function shortenMenuItems(field) {
+	var new_menu = [];
+	for (var i = 0; i < field.menuItems.length; i++) {
+		var item = field.menuItems[i]
+		if (keepMenuItems.includes(item.id)) {
+			new_menu.push(item);
+			if (item.id == "add-column-after" || item.id == "insert-matrix") {
+				new_menu.push({type:"divider"});
+			}
+		}
+		else if (item.id == "copy") {
+			new_menu.push({
+				id: "copy-ascii-math",
+				label: MathfieldElement.strings[MathfieldElement.locale.slice(0, 2)]["menu.copy"],
+				onMenuSelect: item.submenu[1].onMenuSelect,
+				keyboardShortcut: "meta+C",
+			});
+		}
+	}
 
-{\int_0^t{5}}
-
-{\lim_{x\to\infty}\bigg(\frac{5}{2}\bigg)}
-
-
-https://cortexjs.io/mathfield/
-
-*/
+	Object.assign(menuItems, new_menu);
+}

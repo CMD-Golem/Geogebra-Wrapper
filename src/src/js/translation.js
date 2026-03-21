@@ -1,7 +1,7 @@
 const undef = {length:null, insert:null};
 
-function translation(input) {
-	if (input[0] == "(" && input[input.length - 1] == ")") input = input.slice(1,-1);
+function translation(input, first) {
+	if (first != true && input[0] == "(" && input[input.length - 1] == ")") input = input.slice(1,-1);
 
 	var output = "";
 	var lastIndex = 0;
@@ -68,6 +68,13 @@ function removeBrackets(str) {
 
 // ###################################################
 /* Translation functions */
+function ans(_, _) {
+	var math_box = document.getElementById("activeMath");
+	var ans_text = math_box.previousElementSibling?.children[1].children[1].getValue("plain-text");
+
+	return {length: 6, insert: ans_text}
+}
+
 function sum(pos, str) {
 	// sum  _(x=0)^(5+2)(2x) to Sum(2 x,x,0,5)
 	var value_pos = str.indexOf("_", pos) + 1;

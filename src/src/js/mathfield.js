@@ -5,7 +5,7 @@ var math_pos_counter = 0;
 function addMathLine() {
 	mathlist.blur();
 	var box = document.createElement("math-box");
-	box.setAttribute("data-numeric", !default_numeric);
+	box.setAttribute("data-numeric", String(!default_numeric));
 	box.addEventListener("click", () => {
 		changeActiveMath(box);
 	}, true);
@@ -19,12 +19,6 @@ function addMathLine() {
 	// input.addEventListener("focus", () => { box.classList.add("activeMath") });
 	// input.addEventListener("blur", () => { box.classList.remove("activeMath") });
 	input.addEventListener("input", geogebraDebounceCalc);
-	box.appendChild(input);
-	input.focus();
-	input.menuItems = [];
-	input.mathVirtualKeyboardPolicy = "manuall";
-	input.inlineShortcuts = inline_shortcuts;
-	input.keybindings = keybindings;
 
 	var result = document.createElement("result-box");
 	var toggle_numeric = document.createElement("button");
@@ -38,9 +32,19 @@ function addMathLine() {
 	output.classList.add("math_output");
 	output.setAttribute("read-only", true);
 
+	box.appendChild(input);25
+	box.appendChild(result);
 	result.appendChild(toggle_numeric);
 	result.appendChild(output);
-	box.appendChild(result);
+
+	if (menuItems.length == 0) shortenMenuItems(input);
+	
+	input.focus();
+	input.mathVirtualKeyboardPolicy = "manuall";
+	input.inlineShortcuts = inline_shortcuts;
+	input.keybindings = keybindings;
+	input.menuItems = menuItems;
+	output.menuItems = menuItems;
 }
 
 function changeActiveMath(box) {
@@ -50,10 +54,14 @@ function changeActiveMath(box) {
 }
 
 function toggleNumeric(button, box) {
-	box.toggleAttribute("data-numeric");
-	var status = box.getAttribute("data-numeric");
-	if (status != null) button.innerHTML = "≈";
-	else button.innerHTML = "=";
+	if (box.getAttribute("data-numeric") == "false") {
+		button.innerHTML = "≈";
+		box.setAttribute("data-numeric", "true");
+	}
+	else {
+		button.innerHTML = "=";
+		box.setAttribute("data-numeric", "false");
+	}
 }
 
 
@@ -91,7 +99,3 @@ function moveMath(action) {
 	else if (action == "backwards") selected_field.executeCommand("moveToPreviousChar");
 	else if (action == "delete") selected_field.executeCommand("deleteBackward");
 }
-
-// overwrite default keybindings and inline shortcuts:
-// mathlive.min.js: var um and var Ba
-

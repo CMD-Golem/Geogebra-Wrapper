@@ -14,11 +14,11 @@ function geogebraStartCalc() {
 
 	console.log("Raw Input: " + plain_input);
 	
-	// translation25+
-	var geog_input = translation(plain_input);
+	// translation
+	var geog_input = translation(plain_input, true);
 
 	// Get Nummric result
-	if (math_box.getAttribute("data-numeric") != null) geog_input = `Numeric(${geog_input}, ${significants})`;
+	if (math_box.getAttribute("data-numeric") == "true") geog_input = `Numeric(${geog_input}, ${significants})`;
 
 	// get geogebra response
 	console.log("Translated Input: " + geog_input);
@@ -41,6 +41,9 @@ function geogebraStartCalc() {
 	else math_box.style.display = "flex";
 
 	// show result
+	ggbApplet.deleteObject(geog_label);
+	return;
+
 	if (math_box.getAttribute("data-show") == null) return;
 
 	// show in graph
