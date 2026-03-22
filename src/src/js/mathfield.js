@@ -36,15 +36,13 @@ function addMathLine() {
 	box.appendChild(result);
 	result.appendChild(toggle_numeric);
 	result.appendChild(output);
-
-	if (menuItems.length == 0) shortenMenuItems(input);
 	
 	input.focus();
 	input.mathVirtualKeyboardPolicy = "manuall";
 	input.inlineShortcuts = inline_shortcuts;
 	input.keybindings = keybindings;
-	input.menuItems = menuItems;
-	output.menuItems = menuItems;
+	input.menuItems = shortenMenuItems(input);
+	output.menuItems = shortenMenuItems(output);
 }
 
 function changeActiveMath(box) {

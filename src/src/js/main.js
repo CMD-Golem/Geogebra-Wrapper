@@ -19,38 +19,39 @@ var math_data = [
 	{input:"sqrt", value:"\\sqrt{#?}", search:null, after:undefined},
 	{input:"cbrt", value:"\\sqrt[3]{#?}", search:null, after:undefined},
 	{input:"root", value:"\\sqrt[#?]{#?}", search:"root", regex:"root", replace:nroot, after:undefined},
-	{input:"sin", value:"\\sin(#?)", search:null, after:undefined},
-	{input:"cos", value:"\\cos(#?)", search:null, after:undefined},
-	{input:"tan", value:"\\tan(#?)", search:null, after:undefined},
-	{input:"cot", value:"\\cot(#?)", search:null, after:undefined},
-	{input:"csc", value:"\\csc(#?)", search:null, after:undefined},
-	{input:"sec", value:"\\sec(#?)", search:null, after:undefined},
-	{input:"arcsin", value:"\\arcsin(#?)", search:null, after:undefined},
-	{input:"arccos", value:"\\arccos(#?)", search:null, after:undefined},
-	{input:"arctan", value:"\\arctan(#?)", search:null, after:undefined},
-	{input:"arccot", value:"\\operatorname{arccot}(#?)", search:null, after:undefined},
-	{input:"arccsc", value:"\\operatorname{arccsc}(#?)", search:null, after:undefined},
-	{input:"arcsec", value:"\\operatorname{arcsec}(#?)", search:null, after:undefined},
-	{input:"sinh", value:"\\sinh(#?)", search:null, after:undefined},
-	{input:"cosh", value:"\\cosh(#?)", search:null, after:undefined},
-	{input:"tanh", value:"\\tanh(#?)", search:null, after:undefined},
-	{input:"coth", value:"\\coth(#?)", search:null, after:undefined},
-	{input:"csch", value:"\\operatorname{csch}(#?)", search:null, after:undefined},
-	{input:"sech", value:"\\operatorname{sech}(#?)", search:null, after:undefined},
-	{input:"arsinh", value:"\\operatorname{arsinh}(#?)", search:null, after:undefined},
-	{input:"arcosh", value:"\\operatorname{arcosh}(#?)", search:null, after:undefined},
-	{input:"artanh", value:"\\operatorname{artanh}(#?)", search:null, after:undefined},
-	{input:"arcoth", value:"\\operatorname{arcoth}(#?)", search:null, after:undefined},
-	{input:"arcsch", value:"\\operatorname{arcsch}(#?)", search:null, after:undefined},
-	{input:"arsech", value:"\\operatorname{arsech}(#?)", search:null, after:undefined},
-	{input:"lg", value:"\\lg(#?)", search:null, after:undefined},
+	{input:"sin", value:"\\operatorname{sin(}#?)", search:null, after:undefined},
+	{input:"cos", value:"\\operatorname{cos(}#?)", search:null, after:undefined},
+	{input:"tan", value:"\\operatorname{tan(}#?)", search:null, after:undefined},
+	{input:"cot", value:"\\operatorname{cot(}#?)", search:null, after:undefined},
+	{input:"csc", value:"\\operatorname{csc(}#?)", search:null, after:undefined},
+	{input:"sec", value:"\\operatorname{sec(}#?)", search:null, after:undefined},
+	{input:"arcsin", value:"\\operatorname{arcsin(}#?)", search:null, after:undefined},
+	{input:"arccos", value:"\\operatorname{arccos(}#?)", search:null, after:undefined},
+	{input:"arctan", value:"\\operatorname{arctan(}#?)", search:null, after:undefined},
+	{input:"arccot", value:"\\operatorname{arccot(}#?)", search:null, after:undefined},
+	{input:"arccsc", value:"\\operatorname{arccsc(}#?)", search:null, after:undefined},
+	{input:"arcsec", value:"\\operatorname{arcsec(}#?)", search:null, after:undefined},
+	{input:"sinh", value:"\\operatorname{sinh(}#?)", search:null, after:undefined},
+	{input:"cosh", value:"\\operatorname{cosh(}#?)", search:null, after:undefined},
+	{input:"tanh", value:"\\operatorname{tanh(}#?)", search:null, after:undefined},
+	{input:"coth", value:"\\operatorname{coth(}#?)", search:null, after:undefined},
+	{input:"csch", value:"\\operatorname{csch(}#?)", search:null, after:undefined},
+	{input:"sech", value:"\\operatorname{sech(}#?)", search:null, after:undefined},
+	{input:"arsinh", value:"\\operatorname{arsinh(}#?)", search:null, after:undefined},
+	{input:"arcosh", value:"\\operatorname{arcosh(}#?)", search:null, after:undefined},
+	{input:"artanh", value:"\\operatorname{artanh(}#?)", search:null, after:undefined},
+	{input:"arcoth", value:"\\operatorname{arcoth(}#?)", search:null, after:undefined},
+	{input:"arcsch", value:"\\operatorname{arcsch(}#?)", search:null, after:undefined},
+	{input:"arsech", value:"\\operatorname{arsech(}#?)", search:null, after:undefined},
+	{input:"lg", value:"\\operatorname{lg(}#?)", search:null, after:undefined},
 	{input:"log", value:"\\log_{#?}(#?)", search:null, after:undefined},
-	{input:"ln", value:"\\ln(#?)", search:null, after:undefined},
+	{input:"ln", value:"\\operatorname{ln(}#?)", search:null, after:undefined},
 	{input:"lim", value:"\\lim_{#?\\to#?}(#?)", search:null, after:undefined},
 	{input:"\u2260", value:"\\ne", search:null, after:undefined},
 	{input:"!=", value:"\\ne", search:null, after:undefined},
 	{input:"*", value:"\\cdot", search:null, after:undefined},
-	{input:"Ans", value:"\\operatorname{Ans}", search:"A n s ", regex:"A n s ", replace:ans, after:undefined},
+	{input:"Ans", value:"\\operatorname{Ans}", search:"Ans", regex:"Ans", replace:ans, after:undefined},
+	{input:"ans", value:"\\operatorname{Ans}", search:null, after:undefined},
 ];
 
 var inline_shortcuts = {};
@@ -150,7 +151,6 @@ const keybindings = [
 ];
 
 const keepMenuItems = ["add-row-above", "add-row-below", "add-column-before", "add-column-after", "delete-row", "delete-column", "insert-matrix", "cut", "paste", "select-all"]
-const menuItems = [];
 
 function shortenMenuItems(field) {
 	var new_menu = [];
@@ -172,5 +172,5 @@ function shortenMenuItems(field) {
 		}
 	}
 
-	Object.assign(menuItems, new_menu);
+	return new_menu;
 }

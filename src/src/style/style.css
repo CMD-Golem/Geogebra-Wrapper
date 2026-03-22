@@ -89,7 +89,7 @@ math-field {
 }
 
 math-field::part(container), math-field::part(content) {
-	overflow: auto;
+	overflow-x: auto;
 	user-select: none;
 }
 
