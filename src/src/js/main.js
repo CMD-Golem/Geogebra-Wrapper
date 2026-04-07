@@ -3,74 +3,61 @@ document.querySelector("body").addEventListener("contextmenu", (e) => { e.preven
 var default_numeric = false;
 var significants = 8;
 
-var math_data = [
-	{input:"pi", value:"\\pi", search:null, after:undefined},
-	{input:"ii", value:"\\imaginaryI", search:"i", regex:"(?<![A-Za-z])i(?![A-Za-z])", replace:"\u03af", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
-	{input:"jj", value:"\\imaginaryJ", search:"j", regex:"(?<![A-Za-z])j(?![A-Za-z])", replace:"\u03af", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
-	{input:"ee", value:"\\exponentialE", search:"e", regex:"(?<![A-Za-z])e(?![A-Za-z])", replace:"\u212f", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
-	{input:"dd", value:"\\differentialD", search:null, after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
-	{input:"oo", value:"\\infty", search:"oo", regex:"(?<![A-Za-z])oo(?![A-Za-z])", replace:"\u221E", after:"nothing+digit+frac+surd+binop+relop+punct+array+openfence+closefence+space"},
-	{input:"inf", value:"\\infty", search:null, after:undefined},
-	{input:"\u221E", value:"\\infty", search:null, after:undefined},
-	{input:"\u2211", value:"\\sum", search:"sum", regex:"sum", replace:sum, after:undefined},
-	{input:"sum", value:"\\sum_{k=0}^{#?}(#?)", search:null, after:undefined},
-	{input:"int", value:"\\int_{#?}^{#?}(#?\\differentialD#?)", search:"int", regex:"int", replace:int, after:undefined},
-	{input:"prod", value:"\\prod_{k=1}^{#?}(#?)", search:"prod", regex:"prod", replace:prod, after:undefined},
-	{input:"sqrt", value:"\\sqrt{#?}", search:null, after:undefined},
-	{input:"cbrt", value:"\\sqrt[3]{#?}", search:null, after:undefined},
-	{input:"root", value:"\\sqrt[#?]{#?}", search:"root", regex:"root", replace:nroot, after:undefined},
-	{input:"sin", value:"\\operatorname{sin(}#?)", search:null, after:undefined},
-	{input:"cos", value:"\\operatorname{cos(}#?)", search:null, after:undefined},
-	{input:"tan", value:"\\operatorname{tan(}#?)", search:null, after:undefined},
-	{input:"cot", value:"\\operatorname{cot(}#?)", search:null, after:undefined},
-	{input:"csc", value:"\\operatorname{csc(}#?)", search:null, after:undefined},
-	{input:"sec", value:"\\operatorname{sec(}#?)", search:null, after:undefined},
-	{input:"arcsin", value:"\\operatorname{arcsin(}#?)", search:null, after:undefined},
-	{input:"arccos", value:"\\operatorname{arccos(}#?)", search:null, after:undefined},
-	{input:"arctan", value:"\\operatorname{arctan(}#?)", search:null, after:undefined},
-	{input:"arccot", value:"\\operatorname{arccot(}#?)", search:null, after:undefined},
-	{input:"arccsc", value:"\\operatorname{arccsc(}#?)", search:null, after:undefined},
-	{input:"arcsec", value:"\\operatorname{arcsec(}#?)", search:null, after:undefined},
-	{input:"sinh", value:"\\operatorname{sinh(}#?)", search:null, after:undefined},
-	{input:"cosh", value:"\\operatorname{cosh(}#?)", search:null, after:undefined},
-	{input:"tanh", value:"\\operatorname{tanh(}#?)", search:null, after:undefined},
-	{input:"coth", value:"\\operatorname{coth(}#?)", search:null, after:undefined},
-	{input:"csch", value:"\\operatorname{csch(}#?)", search:null, after:undefined},
-	{input:"sech", value:"\\operatorname{sech(}#?)", search:null, after:undefined},
-	{input:"arsinh", value:"\\operatorname{arsinh(}#?)", search:null, after:undefined},
-	{input:"arcosh", value:"\\operatorname{arcosh(}#?)", search:null, after:undefined},
-	{input:"artanh", value:"\\operatorname{artanh(}#?)", search:null, after:undefined},
-	{input:"arcoth", value:"\\operatorname{arcoth(}#?)", search:null, after:undefined},
-	{input:"arcsch", value:"\\operatorname{arcsch(}#?)", search:null, after:undefined},
-	{input:"arsech", value:"\\operatorname{arsech(}#?)", search:null, after:undefined},
-	{input:"lg", value:"\\operatorname{lg(}#?)", search:null, after:undefined},
-	{input:"log", value:"\\log_{#?}(#?)", search:null, after:undefined},
-	{input:"ln", value:"\\operatorname{ln(}#?)", search:null, after:undefined},
-	{input:"lim", value:"\\lim_{#?\\to#?}(#?)", search:null, after:undefined},
-	{input:"\u2260", value:"\\ne", search:null, after:undefined},
-	{input:"!=", value:"\\ne", search:null, after:undefined},
-	{input:"*", value:"\\cdot", search:null, after:undefined},
-	{input:"Ans", value:"\\operatorname{Ans}", search:"Ans", regex:"Ans", replace:ans, after:undefined},
-	{input:"ans", value:"\\operatorname{Ans}", search:null, after:undefined},
-];
-
-var inline_shortcuts = {};
-var translation_layer = {};
-var translation_regex = "";
-for (let i = 0; i < math_data.length; i++) {
-	// mathfield
-	inline_shortcuts[math_data[i].input] = {
-		after: math_data[i].after,
-		value: math_data[i].value,
-	};
-
-	// translation
-	let search = math_data[i].search;
-	if (search == null) continue;
-	translation_layer[search] = math_data[i].replace;
-	translation_regex += math_data[i].regex + "|";
-}
-translation_regex = translation_regex.slice(0,-1);
+const inline_shortcuts = {
+	"pi": {value:"\\pi", after:undefined},
+	"ii": {value:"\\imaginaryI", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	"jj": {value:"\\imaginaryJ", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	"ee": {value:"\\exponentialE", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	"dd": {value:"\\differentialD", after:"nothing+digit+function+frac+surd+binop+relop+punct+array+openfence+closefence+space+text"},
+	"oo": {value:"\\infty", after:"nothing+digit+frac+surd+binop+relop+punct+array+openfence+closefence+space"},
+	"inf": {value:"\\infty", after:undefined},
+	"\u221E": {value:"\\infty", after:undefined},
+	"\u2211": {value:"\\sum", after:undefined},
+	"sum": {value:"\\operatorname*{\\sum_{k=0}^{#?}(}#?)", after:undefined},
+	"int": {value:"\\operatorname*{\\int_{#?}^{#?}(}#?\\differentialD#?)", after:undefined},
+	"intbl": {value:"\\operatorname*{\\int(}#?\\differentialD#?)", after:undefined},
+	"intblx": {value:"\\operatorname*{\\int(}#?\\differentialD x)", after:undefined},
+	"der": {value:"\\frac{\\differentialD}{\\differentialD #?}(#0)", after:undefined},
+	"derx": {value:"\\frac{\\differentialD}{\\differentialD x}(#0)", after:undefined},
+	"prod": {value:"\\operatorname*{\\prod_{k=1}^{#?}(}#?)", after:undefined},
+	"sqrt": {value:"\\sqrt{#?}", after:undefined},
+	"cbrt": {value:"\\sqrt[3]{#?}", after:undefined},
+	"root": {value:"\\sqrt[#?]{#?}", after:undefined},
+	"sin": {value:"\\operatorname{sin(}#?)", after:undefined},
+	"cos": {value:"\\operatorname{cos(}#?)", after:undefined},
+	"tan": {value:"\\operatorname{tan(}#?)", after:undefined},
+	"cot": {value:"\\operatorname{cot(}#?)", after:undefined},
+	"csc": {value:"\\operatorname{csc(}#?)", after:undefined},
+	"sec": {value:"\\operatorname{sec(}#?)", after:undefined},
+	"arcsin": {value:"\\operatorname{arcsin(}#?)", after:undefined},
+	"arccos": {value:"\\operatorname{arccos(}#?)", after:undefined},
+	"arctan": {value:"\\operatorname{arctan(}#?)", after:undefined},
+	"arccot": {value:"\\operatorname{arccot(}#?)", after:undefined},
+	"arccsc": {value:"\\operatorname{arccsc(}#?)", after:undefined},
+	"arcsec": {value:"\\operatorname{arcsec(}#?)", after:undefined},
+	"sinh": {value:"\\operatorname{sinh(}#?)", after:undefined},
+	"cosh": {value:"\\operatorname{cosh(}#?)", after:undefined},
+	"tanh": {value:"\\operatorname{tanh(}#?)", after:undefined},
+	"coth": {value:"\\operatorname{coth(}#?)", after:undefined},
+	"csch": {value:"\\operatorname{csch(}#?)", after:undefined},
+	"sech": {value:"\\operatorname{sech(}#?)", after:undefined},
+	"arsinh": {value:"\\operatorname{arsinh(}#?)", after:undefined},
+	"arcosh": {value:"\\operatorname{arcosh(}#?)", after:undefined},
+	"artanh": {value:"\\operatorname{artanh(}#?)", after:undefined},
+	"arcoth": {value:"\\operatorname{arcoth(}#?)", after:undefined},
+	"arcsch": {value:"\\operatorname{arcsch(}#?)", after:undefined},
+	"arsech": {value:"\\operatorname{arsech(}#?)", after:undefined},
+	"lb": {value:"\\log_{2}(#?)", after:undefined},
+	"lg": {value:"\\operatorname{lg(}#?)", after:undefined},
+	"log": {value:"\\log_{#?}(#?)", after:undefined},
+	"ln": {value:"\\operatorname{ln(}#?)", after:undefined},
+	"lim": {value:"\\lim_{#?\\to#?}(#?)", after:undefined},
+	"\u2260": {value:"\\ne", after:undefined},
+	"!=": {value:"\\ne", after:undefined},
+	"*": {value:"\\cdot", after:undefined},
+	"Ans": {value:"\\operatorname{Ans}", after:undefined},
+	"ans": {value:"\\operatorname{Ans}", after:undefined},
+};
 
 const keybindings = [
 	{key:"left", command:"moveToPreviousChar"},

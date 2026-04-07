@@ -1,3 +1,11 @@
+const translation_layer = {
+	"Ans": ans,
+	"prod": prod,
+	"int": int,
+	"sum": sum,
+	"(d)/(d": der,
+};
+const translation_regex = "Ans|prod|int|sum|\\(d\\)\\/\\(d";
 const undef = {length:null, insert:null};
 
 function translation(input, first) {
@@ -100,22 +108,6 @@ function sum(pos, str) {
 	return {length: length, insert: `Sum(${sum_content}, ${bottom_bracket_array[0]}, ${bottom_bracket_array[1]}, ${top_bracket_content})`};
 }
 
-function nroot(pos, str) {
-	// root(n)(x) to nroot(x, n)
-	var split_str = str.slice(pos).split("");
-
-	var n_bracket_end = getBracketLength(split_str, 4);
-	if (n_bracket_end == -1) return undef;
-	var x_bracket_end = getBracketLength(split_str, n_bracket_end + 1);
-	if (x_bracket_end == -1) return undef;
-
-	var n_content = translation(split_str.slice(5, n_bracket_end).join(""));
-	var x_content = translation(split_str.slice(n_bracket_end + 1, x_bracket_end + 1).join(""));
-	var length = x_bracket_end + 1 - pos;
-
-	return {length: length, insert: `nroot(${x_content}, ${n_content})`};
-}
-
 function int(pos, str) {
 	// int  _a^b(c d x) or int  (x d x) to Integral(c, x, a, b)
 	var value_pos = str.indexOf("_", pos);
@@ -182,4 +174,20 @@ function prod(pos, str) {
 	if (bottom_bracket_array.length != 2 || bottom_bracket_array[1] == "") return undef;
 
 	return {length: length, insert: `Product(${prod_content}, ${bottom_bracket_array[0]}, ${bottom_bracket_array[1]}, ${top_bracket_content})`};
+}
+
+function der(pos, str) {
+	// (d)/(d x^2)(y) to Derivative(y, x, 2)
+	var variable = str[pos + 7]
+	if (str[pos + 8] == "^") var num = str[pos + 9];
+	else var num = 1;
+	
+	var value_pos = str.indexOf("(", pos + 7);
+	var split_str = str.slice(value_pos).split("");
+	var function_end = getBracketLength(split_str, 0);
+	if (function_end == -1) return undef;
+	var function_content = translation(split_str.slice(0, function_end + 1).join(""));
+	var length = function_end + value_pos + 1 - pos;
+
+	return {length: length, insert: `Derivative(${function_content}, ${variable}, ${num})`};
 }

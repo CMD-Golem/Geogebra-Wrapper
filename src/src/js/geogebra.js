@@ -27,6 +27,11 @@ function geogebraStartCalc() {
 
 	console.log("Output: " + geog_label, latex);
 
+	// improve latex
+	latex = latex.replaceAll("\\left(\\begin{array}{rr}", "\\begin{pmatrix}")
+		.replaceAll("\\left(\\begin{array}{r}", "\\begin{pmatrix}")
+		.replaceAll("\\end{array}\\right)", "\\end{pmatrix}")
+
 	// handle empty output
 	if (geog_label == null) {
 		output_field.executeCommand(["insert", " ", {insertionMode:"replaceAll"}]);

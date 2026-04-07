@@ -1,3 +1,11 @@
+var move_math_el = document.getElementsByClassName("move_math");
+for (var i = 0; i < move_math_el.length; i++) {
+	move_math_el[i].addEventListener("pointerup", () => clearTimeout(move_math_timer));
+	move_math_el[i].addEventListener("touchend", () => clearTimeout(move_math_timer));
+	move_math_el[i].addEventListener("touchcancel", () => clearTimeout(move_math_timer));
+}
+
+
 // Mobile submenu
 // ###################################################
 if (navigator.maxTouchPoints > 1) {

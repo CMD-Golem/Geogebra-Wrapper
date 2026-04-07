@@ -36366,6 +36366,9 @@ data-command='["setEnvironment","pmatrix"]'>
     return result;
   }
 
+/* ########################################### */
+
+
   // src/formats/atom-to-ascii-math.ts
   var IDENTIFIERS = {
     "\\ne": "\u2260",
@@ -36409,9 +36412,9 @@ data-command='["setEnvironment","pmatrix"]'>
     "\\Phi": "Phi",
     "\\Psi": "Psi",
     "\\Omega": "Omega",
-    "\\exponentialE": "e",
-    "\\imaginaryI": "i",
-    "\\imaginaryJ": "j",
+    "\\exponentialE": "\u212f",
+    "\\imaginaryI": "\u03af",
+    "\\imaginaryJ": "\u03af",
     "\\!": " ",
     "\\,": " ",
     "\\:": " ",
@@ -36421,7 +36424,7 @@ data-command='["setEnvironment","pmatrix"]'>
     "\\enspace": " ",
     "\\qquad": " ",
     "\\quad": " ",
-    "\\infty": "oo",
+    "\\infty": "\u221E",
     "\\R": "RR",
     "\\mathbb{R}": "RR",
     "\\N": "NN",
@@ -36519,7 +36522,9 @@ data-command='["setEnvironment","pmatrix"]'>
     }
     return result;
   }
+
   function atomToAsciiMath(atom, options) {
+    if (atom?.isRoot) console.log(atom)
     var _a3, _b3, _c2, _d2, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s;
     if (!atom) return "";
     if (isArray(atom)) {
@@ -36616,7 +36621,7 @@ data-command='["setEnvironment","pmatrix"]'>
         if (atom.hasEmptyBranch("above"))
           result += `sqrt(${atomToAsciiMath(atom.body, options)})`;
         else
-          result += `root(${atomToAsciiMath(atom.above, options)})(${atomToAsciiMath(atom.body, options)})`;
+          result += `nroot(${atomToAsciiMath(atom.body, options)}, ${atomToAsciiMath(atom.above, options)})`;
         break;
       case "latex":
         result = atom.value;
@@ -36675,6 +36680,9 @@ data-command='["setEnvironment","pmatrix"]'>
               var value = atom.body[i].value;
               if (value !== undefined) result += value;
             }
+          }
+          else if (command === '\\operatorname*') {
+            result = atomToAsciiMath(atom.body, options)
           }
           else result = atom.value ?? command;
           result += " ";
@@ -36749,6 +36757,8 @@ data-command='["setEnvironment","pmatrix"]'>
     if (style.color) return `color({${style.color}})(${result})`;
     return result;
   }
+
+/* ########################################### */
 
   // src/public/mathlive-ssr.ts
   function convertLatexToMarkup(text, options) {
